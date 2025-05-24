@@ -1,0 +1,172 @@
+// App.js
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import './Dashboard.css';
+import AdminPanel from '../Admin_Dashboard/AdminDashboard';
+import Students from "../Students/Students";
+import ManageSubject from "../Manage_Subject/Manage_Subject"
+import AttendenceReport from "../Attendence_Report/Attendence_Report"
+import AttendenceLog from "../Attendence_Log/Attendence_Log"
+import Registration from "../Registration_page/Registration_page";
+
+function LoginSignup() {
+  const [role, setRole] = useState('Client');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    adminCode: '', // Optional: Only for Admins
+  });
+
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setError('');
+    setSuccess('');
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const endpoint =
+        role === 'Admin'
+          ? 'https://finallyback-3.onrender.com/api/users/Adminlogin'
+          : 'https://finallyback-3.onrender.com/api/users/login';
+
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setSuccess(data.message);
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        navigate(role === 'Admin' ? '/admin/admin_dashboard' : '/client');
+      } else {
+        setError(data.message || 'Invalid credentials');
+      }
+    } catch (err) {
+      setError('Server error. Please try again later.');
+    }
+  };
+
+  return (
+    <div className="app">
+      <header className="navbar">
+        <h2>Chaibasa Engineering College</h2>
+      </header>
+
+      <div className="main-container">
+        <div className="left-section">
+          <h1>
+            Smart Tracking System <br /> <span>for your business</span>
+          </h1>
+          <p>
+            Welcome to our smart tracking system. Easily manage clients and admins from one place.
+          </p>
+        </div>
+
+        <form onSubmit={handleSubmit}>
+          <div className="right-section">
+            <div className="login-box">
+              <div className="role-selection-radio">
+                <label>
+                  <input
+                    type="radio"
+                    name="role"
+                    value="Client"
+                    checked={role === 'Client'}
+                    onChange={() => setRole('Client')}
+                  />{' '}
+                  Client
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="role"
+                    value="Admin"
+                    checked={role === 'Admin'}
+                    onChange={() => setRole('Admin')}
+                  />{' '}
+                  Admin
+                </label>
+              </div>
+
+              <h2>{role} Login</h2>
+
+              <label>Email</label>
+              <input
+                type="text"
+                name="email"
+                placeholder="Enter email"
+                onChange={handleChange}
+              />
+
+              <label>Password</label>
+              <input
+                type="password"
+                name="password"
+                placeholder="Enter password"
+                onChange={handleChange}
+              />
+
+              {role === 'Admin' && (
+                <>
+                  <label>Admin Code</label>
+                  <input
+                    type="text"
+                    name="adminCode"
+                    placeholder="Enter admin code"
+                    onChange={handleChange}
+                  />
+                </>
+              )}
+
+              <div className="remember-section">
+                <input type="checkbox" /> <span>Remember me</span>
+              </div>
+
+              {error && <p className="error">{error}</p>}
+              {success && <p className="success">{success}</p>}
+
+              <button className="signin-button">Sign in</button>
+
+              <p className="forgot">Forgot password?</p>
+              <p className="register">
+                Don’t have an account? <a href="/register">Register here</a>
+              </p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+function ClientPage() {
+  return <h2 style={{ padding: '2rem' }}>Welcome Client</h2>;
+}
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<LoginSignup />} />
+        <Route path="/admin/admin_dashboard" element={<AdminPanel />} />
+        <Route path="/admin/admin_dashboard/students" element={<Students/>} />
+        <Route path="/admin/admin_dashboard/manage-subject" element={<ManageSubject/>} />
+        <Route path="/admin/admin_dashboard/attendance-report" element={<AttendenceReport/>} />
+        <Route path="/admin/admin_dashboard/attendance-log" element={<AttendenceLog/>} />
+        <Route path="/client" element={<ClientPage />} />
+        <Route path="/register" element={<Registration />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
