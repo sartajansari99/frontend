@@ -15,7 +15,7 @@ const App = () => {
 
   useEffect(() => {
     const fetchStudents = async () => {
-      const data = await fetch('https://finallyback-3.onrender.com/api/getuser/getalluser');
+      const data = await fetch('https://frontend-fqsrezxs9-sartaj-ansaris-projects.vercel.app/api/v1/admin/getalluser');
       const result = await data.json();
       setStudents(result);
       setFilteredStudents(result);
