@@ -5,7 +5,7 @@ const StudentCard = ({ student }) => {
   return (
     <div className="student-card">
       <div className="avatar" />
-      <div className='photo'><img src={`https://finallyback-3.onrender.com/${student.photo}`}alt='sartaj'/></div>
+      <div className='photo'><img src={`https://finallyback-3.onrender.com/api/v1/admin/getalluser${student.avatar}`}alt='sartaj'/></div>
       <h3>{student.name}</h3>
       <p>ID: {student.rfid}</p>
       <p>{student.email}</p>
