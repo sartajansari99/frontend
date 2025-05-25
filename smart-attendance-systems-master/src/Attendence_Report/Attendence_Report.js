@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import './Attendence_Report.css';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import "./Attendence_Report.css";
+import axios from "axios";
 
 const AttendanceReport = () => {
   const [subjectsBySemester, setSubjectsBySemester] = useState({});
@@ -9,7 +9,9 @@ const AttendanceReport = () => {
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
-        const response = await axios.get('https://finallyback-3.onrender.com/api/userSubject/getallSubject');
+        const response = await axios.get(
+          "https://finallyback-3.onrender.com/api/userSubject/getallSubject"
+        );
         const grouped = response.data.reduce((acc, subject) => {
           if (!acc[subject.semester]) acc[subject.semester] = [];
           acc[subject.semester].push({ name: subject.name, id: subject._id });
@@ -17,16 +19,18 @@ const AttendanceReport = () => {
         }, {});
         setSubjectsBySemester(grouped);
       } catch (err) {
-        console.error('Failed to fetch subjects:', err);
+        console.error("Failed to fetch subjects:", err);
       }
     };
 
     const fetchAttendance = async () => {
       try {
-        const response = await axios.get('https://finallyback-3.onrender.com/api/total_attendence/attendance_by_subject');
+        const response = await axios.get(
+          "https://finallyback-4.onrender.com/api/v1/admin/getAllSubjects"
+        );
         setAttendanceData(response.data);
       } catch (err) {
-        console.error('Failed to fetch attendance:', err);
+        console.error("Failed to fetch attendance:", err);
       }
     };
 
@@ -35,7 +39,7 @@ const AttendanceReport = () => {
   }, []);
 
   const getAttendanceForSubject = (subjectId) => {
-    const record = attendanceData.find(item => item.subjectId === subjectId);
+    const record = attendanceData.find((item) => item.subjectId === subjectId);
     return record ? record.totalAttendance : 0;
   };
 
@@ -65,7 +69,9 @@ const AttendanceReport = () => {
           <h3 className="semester-title">semester {semester}</h3>
           <div className="subject-row">
             {subjectsBySemester[semester].map((subject, index) => (
-              <div className="cell" key={index}>{subject.name}</div>
+              <div className="cell" key={index}>
+                {subject.name}
+              </div>
             ))}
           </div>
           <div className="subject-row">

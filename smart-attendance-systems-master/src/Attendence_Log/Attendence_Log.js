@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import './Attendence_Log.css';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import "./Attendence_Log.css";
+import axios from "axios";
 
 const AttendanceReport = () => {
   const [attendanceData, setAttendanceData] = useState([]);
@@ -8,10 +8,12 @@ const AttendanceReport = () => {
   useEffect(() => {
     const fetchAttendanceData = async () => {
       try {
-        const response = await axios.get('https://finallyback-3.onrender.com/api/userAttendance_log/attendance_log');
+        const response = await axios.get(
+          "https://finallyback-4.onrender.com/api/v1/admin/attendance_log"
+        );
         setAttendanceData(response.data);
       } catch (err) {
-        console.error('Failed to fetch attendance data:', err);
+        console.error("Failed to fetch attendance data:", err);
       }
     };
     fetchAttendanceData();
@@ -23,7 +25,9 @@ const AttendanceReport = () => {
 
       {attendanceData.map((entry, index) => (
         <div className="log-row" key={index}>
-          <div className="photo-circle"><img src={`https://finallyback-3.onrender.com/${entry.photo}`}alt='sartaj'/></div>
+          <div className="photo-circle">
+            <img src={entry.avatar} alt="sartaj" />
+          </div>
           <div className="log-info">
             <span>{entry.name}</span>
             <span>SEMESTER {entry.semester}</span>

@@ -106,7 +106,7 @@ const StudentRegistration = () => {
     formDataToSend.append("photo", file); // append photo as File
 
     try {
-      const response = await fetch("https://finallyback-3.onrender.com/api/users/register", {
+      const response = await fetch("https://finallyback-4.onrender.com/api/v1/users/register", {
         method: "POST",
         body: formDataToSend,
       });

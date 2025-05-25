@@ -1,22 +1,25 @@
 // App.jsx
-import React, { useEffect, useState } from 'react';
-import StudentCard from './StudentCard';
-import FilterSidebar from './FilterSidebar';
-import SearchBar from './SearchBar';
-import Pagination from './Pagination';
-import './Students.css';
+import React, { useEffect, useState } from "react";
+import StudentCard from "./StudentCard";
+import FilterSidebar from "./FilterSidebar";
+import SearchBar from "./SearchBar";
+import Pagination from "./Pagination";
+import "./Students.css";
 
 const App = () => {
   const [students, setStudents] = useState([]);
   const [filteredStudents, setFilteredStudents] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const studentsPerPage = 9;
 
   useEffect(() => {
     const fetchStudents = async () => {
-      const data = await fetch('https://finallyback-3.onrender.com/api/v1/admin/getalluser');
+      const data = await fetch(
+        "https://finallyback-3.onrender.com/api/v1/admin/getalluser"
+      );
       const result = await data.json();
+
       setStudents(result);
       setFilteredStudents(result);
     };
@@ -33,21 +36,20 @@ const App = () => {
     setFilteredStudents(results);
     setCurrentPage(1);
   };
-  
 
   const handleFilter = (type) => {
     let sorted = [...filteredStudents];
     switch (type) {
-      case 'batch':
+      case "batch":
         sorted.sort((a, b) => a.batch - b.batch);
         break;
-      case 'branch':
+      case "branch":
         sorted.sort((a, b) => a.branch.localeCompare(b.branch));
         break;
-      case 'attendance':
+      case "attendance":
         sorted.sort((a, b) => b.attendance - a.attendance);
         break;
-      case 'sgpa':
+      case "sgpa":
         sorted.sort((a, b) => b.sgpa - a.sgpa);
         break;
       default:
@@ -67,7 +69,7 @@ const App = () => {
         <SearchBar searchQuery={handleSearch} />
         <div className="student-grid">
           {currentStudents.map((student) => (
-            <StudentCard key={student.id} student={student} />
+            <StudentCard key={student._id} student={student} />
           ))}
         </div>
         <Pagination
@@ -82,13 +84,3 @@ const App = () => {
 };
 
 export default App;
-
-// components/StudentCard.jsx
-
-
-// components/FilterSidebar.jsx
-
-// components/SearchBar.jsx
-
-
-// components/Pagination.jsx
