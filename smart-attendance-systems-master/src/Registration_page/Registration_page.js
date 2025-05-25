@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 const StudentRegistration = () => {
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
+    fullName:"",
     password: "",
     rfid: "",
     semester: "",
@@ -19,7 +20,8 @@ const StudentRegistration = () => {
     cgpa: "",
     batches: "",
     branch: "",
-    photo: "" // Base64 image
+    avatar: "",
+    coverImage:"" // Base64 image
   });
 
   const [errors, setErrors] = useState({});
@@ -41,7 +43,8 @@ const StudentRegistration = () => {
   const validate = () => {
     let newErrors = {};
 
-    if (!formData.name.trim()) newErrors.name = "Name is required.";
+    if (!formData.username.trim()) newErrors.username = "Name is required.";
+    if (!formData.fullName.trim()) newErrors.fullName = "Name is required.";
     if (!formData.email.trim()) {
       newErrors.email = "Email is required.";
     } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
@@ -70,7 +73,8 @@ const StudentRegistration = () => {
     if (!formData.branch) {
       newErrors.branch = "Branch must be provided.";
     }
-    if (!formData.photo) newErrors.photo = "Student photo is required.";
+    if (!formData.avatar) newErrors.photo = "Student avatar is required.";
+    if (!formData.coverImage) newErrors.coverImage = "Student avatar is required.";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -95,7 +99,7 @@ const StudentRegistration = () => {
     e.preventDefault();
     if (!validate()) return;
 
-    const file = base64ToFile(formData.photo, "student_photo.png");
+    const file = base64ToFile(formData.avatar, "student_photo.png");
 
     const formDataToSend = new FormData();
     Object.keys(formData).forEach(key => {
@@ -103,7 +107,7 @@ const StudentRegistration = () => {
         formDataToSend.append(key, formData[key]);
       }
     });
-    formDataToSend.append("photo", file); // append photo as File
+    formDataToSend.append("avatar", file); // append photo as File
 
     try {
       const response = await fetch("https://finallyback-4.onrender.com/api/v1/users/register", {
@@ -132,11 +136,14 @@ const StudentRegistration = () => {
     <div className="container">
       <h2 className="title">Student Registration</h2>
       <form onSubmit={handleSubmit} className="form">
-        <input type="text" name="name" placeholder="Full name" value={formData.name} onChange={handleChange} />
-        {errors.name && <p className="error">{errors.name}</p>}
+        <input type="text" name="username" placeholder="username" value={formData.username} onChange={handleChange} />
+        {errors.username && <p className="error">{errors.username}</p>}
 
         <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
         {errors.email && <p className="error">{errors.email}</p>}
+
+        <input type="text" name="fullName" placeholder="fullName" value={formData.fullName} onChange={handleChange} />
+        {errors.fullName&& <p className="error">{errors.fullName}</p>}
 
         <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} />
         {errors.password && <p className="error">{errors.password}</p>}
@@ -176,7 +183,7 @@ const StudentRegistration = () => {
 
         <label className="upload-label">Upload Photo:</label>
         <input type="file" accept="image/*" onChange={handleImageChange} />
-        {errors.photo && <p className="error">{errors.photo}</p>}
+        {errors.avatar && <p className="error">{errors.avatar}</p>}
 
         <button type="submit" className="submit-btn">Register</button>
         <p className="form-footer">
