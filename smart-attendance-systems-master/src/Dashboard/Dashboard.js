@@ -1,30 +1,35 @@
 // App.js
-import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
-import './Dashboard.css';
-import AdminPanel from '../Admin_Dashboard/AdminDashboard';
+import React, { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
+import "./Dashboard.css";
+import AdminPanel from "../Admin_Dashboard/AdminDashboard";
 import Students from "../Students/Students";
-import ManageSubject from "../Manage_Subject/Manage_Subject"
-import AttendenceReport from "../Attendence_Report/Attendence_Report"
-import AttendenceLog from "../Attendence_Log/Attendence_Log"
+import ManageSubject from "../Manage_Subject/Manage_Subject";
+import AttendenceReport from "../Attendence_Report/Attendence_Report";
+import AttendenceLog from "../Attendence_Log/Attendence_Log";
 import Registration from "../Registration_page/Registration_page";
 
 function LoginSignup() {
-  const [role, setRole] = useState('Client');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [role, setRole] = useState("Client");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    adminCode: '', // Optional: Only for Admins
+    email: "",
+    password: "",
+    adminCode: "", // Optional: Only for Admins
   });
 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
   };
 
   const handleSubmit = async (e) => {
@@ -32,13 +37,13 @@ function LoginSignup() {
 
     try {
       const endpoint =
-        role === 'Admin'
-          ? 'https://finallyback-3.onrender.com/api/users/Adminlogin'
-          : 'https://finallyback-3.onrender.com/api/users/login';
+        role === "Admin"
+          ? "https://finallyback-3.onrender.com/api/v1/admin/login"
+          : "https://finallyback-3.onrender.com/api/v1/users/login";
 
       const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
@@ -46,14 +51,14 @@ function LoginSignup() {
 
       if (response.ok) {
         setSuccess(data.message);
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        navigate(role === 'Admin' ? '/admin/admin_dashboard' : '/client');
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        navigate(role === "Admin" ? "/admin/admin_dashboard" : "/client");
       } else {
-        setError(data.message || 'Invalid credentials');
+        setError(data.message || "Invalid credentials");
       }
     } catch (err) {
-      setError('Server error. Please try again later.');
+      setError("Server error. Please try again later.");
     }
   };
 
@@ -69,7 +74,8 @@ function LoginSignup() {
             Smart Tracking System <br /> <span>for your business</span>
           </h1>
           <p>
-            Welcome to our smart tracking system. Easily manage clients and admins from one place.
+            Welcome to our smart tracking system. Easily manage clients and
+            admins from one place.
           </p>
         </div>
 
@@ -82,9 +88,9 @@ function LoginSignup() {
                     type="radio"
                     name="role"
                     value="Client"
-                    checked={role === 'Client'}
-                    onChange={() => setRole('Client')}
-                  />{' '}
+                    checked={role === "Client"}
+                    onChange={() => setRole("Client")}
+                  />{" "}
                   Client
                 </label>
                 <label>
@@ -92,9 +98,9 @@ function LoginSignup() {
                     type="radio"
                     name="role"
                     value="Admin"
-                    checked={role === 'Admin'}
-                    onChange={() => setRole('Admin')}
-                  />{' '}
+                    checked={role === "Admin"}
+                    onChange={() => setRole("Admin")}
+                  />{" "}
                   Admin
                 </label>
               </div>
@@ -117,7 +123,7 @@ function LoginSignup() {
                 onChange={handleChange}
               />
 
-              {role === 'Admin' && (
+              {role === "Admin" && (
                 <>
                   <label>Admin Code</label>
                   <input
@@ -150,7 +156,7 @@ function LoginSignup() {
   );
 }
 function ClientPage() {
-  return <h2 style={{ padding: '2rem' }}>Welcome Client</h2>;
+  return <h2 style={{ padding: "2rem" }}>Welcome Client</h2>;
 }
 function App() {
   return (
@@ -158,10 +164,19 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginSignup />} />
         <Route path="/admin/admin_dashboard" element={<AdminPanel />} />
-        <Route path="/admin/admin_dashboard/students" element={<Students/>} />
-        <Route path="/admin/admin_dashboard/manage-subject" element={<ManageSubject/>} />
-        <Route path="/admin/admin_dashboard/attendance-report" element={<AttendenceReport/>} />
-        <Route path="/admin/admin_dashboard/attendance-log" element={<AttendenceLog/>} />
+        <Route path="/admin/admin_dashboard/students" element={<Students />} />
+        <Route
+          path="/admin/admin_dashboard/manage-subject"
+          element={<ManageSubject />}
+        />
+        <Route
+          path="/admin/admin_dashboard/attendance-report"
+          element={<AttendenceReport />}
+        />
+        <Route
+          path="/admin/admin_dashboard/attendance-log"
+          element={<AttendenceLog />}
+        />
         <Route path="/client" element={<ClientPage />} />
         <Route path="/register" element={<Registration />} />
       </Routes>
