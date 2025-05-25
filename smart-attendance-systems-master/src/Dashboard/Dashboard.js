@@ -38,8 +38,8 @@ function LoginSignup() {
     try {
       const endpoint =
         role === "Admin"
-          ? "https://frontend-fqsrezxs9-sartaj-ansaris-projects.vercel.app/api/v1/admin/login"
-          : "https://frontend-fqsrezxs9-sartaj-ansaris-projects.vercel.app/api/v1/users/login";
+          ? "https://finallyback-4.onrender.com/api/v1/admin/login"
+          : "https://finallyback-4.onrender.com/api/v1/users/login";
 
       const response = await fetch(endpoint, {
         method: "POST",
