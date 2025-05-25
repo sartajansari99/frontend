@@ -67,7 +67,7 @@ const SubjectManager = () => {
 
   const handleUpdate = async () => {
     await axios.put(
-      `https://finallyback-4.onrender.com/api/v1/admin/updateSubject${editingId}`,
+      `https://finallyback-4.onrender.com/api/v1/admin/updateSubject/${editingId}`,
       editData
     );
     setEditingId(null);
