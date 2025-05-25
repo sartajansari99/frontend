@@ -6,10 +6,7 @@ const StudentCard = ({ student }) => {
     <div className="student-card">
       <div className="avatar" />
       <div className="photo">
-        <img
-          src={`https://finallyback-3.onrender.com/${student.avatar}`}
-          alt="sartaj"
-        />
+        <img src={student.avatar} alt="sartaj" />
       </div>
       <h3>{student.name}</h3>
       <h3>{student.fullName}</h3>
