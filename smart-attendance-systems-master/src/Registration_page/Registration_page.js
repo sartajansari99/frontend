@@ -188,7 +188,7 @@ const StudentRegistration = () => {
         <button type="submit" className="submit-btn">Register</button>
         <p className="form-footer">
           Already have an account?{" "}
-          <span className="link" onClick={() => navigate("/")}>
+          <span className="link" onClick={() => navigate("https://finallyback-4.onrender.com")}>
             Login here
           </span>
         </p>
