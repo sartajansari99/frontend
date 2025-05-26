@@ -103,7 +103,7 @@ const StudentRegistration = () => {
 
     const formDataToSend = new FormData();
     Object.keys(formData).forEach(key => {
-      if (key !== "photo") {
+      if (key !== "avatar") {
         formDataToSend.append(key, formData[key]);
       }
     });
@@ -120,7 +120,7 @@ const StudentRegistration = () => {
       if (response.ok) {
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
-        navigate("/dashboard");
+        navigate("https://finallyback-4.onrender.com/dashboard");
       } else {
         setErrors({ general: data.message });
       }
