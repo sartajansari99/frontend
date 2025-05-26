@@ -1,12 +1,13 @@
-import { useState } from "react";
-import "./Registration_page.css";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const StudentRegistration = () => {
+const Register = () => {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
-    fullName:"",
+    fullName: "",
     password: "",
     rfid: "",
     semester: "",
@@ -18,183 +19,184 @@ const StudentRegistration = () => {
     motherName: "",
     parentEmail: "",
     cgpa: "",
-    batches: "",
     branch: "",
-    avatar: "",
-    coverImage:"" // Base64 image
+    batches: "",
+    avatar: null,
+    coverImage: null,
   });
 
-  const [errors, setErrors] = useState({});
-  const navigate = useNavigate();
-
-  // ⬇️ Utility to convert base64 to File
-  function base64ToFile(base64String, filename) {
-    const arr = base64String.split(',');
-    const mime = arr[0].match(/:(.*?);/)[1];
-    const bstr = atob(arr[1]);
-    let n = bstr.length;
-    const u8arr = new Uint8Array(n);
-    while (n--) {
-      u8arr[n] = bstr.charCodeAt(n);
-    }
-    return new File([u8arr], filename, { type: mime });
-  }
-
-  const validate = () => {
-    let newErrors = {};
-
-    if (!formData.username.trim()) newErrors.username = "Name is required.";
-    if (!formData.fullName.trim()) newErrors.fullName = "Name is required.";
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required.";
-    } else if (!/^\S+@\S+\.\S+$/.test(formData.email)) {
-      newErrors.email = "Invalid email format.";
-    }
-    if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters.";
-    }
-    if (!formData.rfid.trim()) newErrors.rfid = "RFID is required.";
-    if (!formData.fatherName.trim()) newErrors.fatherName = "Father's name is required.";
-    if (!formData.motherName.trim()) newErrors.motherName = "Mother's name is required.";
-    if (!formData.schooling.trim()) newErrors.schooling = "10th School name is required.";
-    if (formData.schoolingPer < 0 || formData.schoolingPer > 100) {
-      newErrors.schoolingPer = "10th Percentage must be between 0-100.";
-    }
-    if (!formData.intermediate.trim()) newErrors.intermediate = "12th School name is required.";
-    if (formData.intermediatePer < 0 || formData.intermediatePer > 100) {
-      newErrors.intermediatePer = "12th Percentage must be between 0-100.";
-    }
-    if (!formData.semester || formData.semester <= 0) {
-      newErrors.semester = "Semester must be a valid number.";
-    }
-    if (!formData.batches || formData.batches <= 0) {
-      newErrors.batches = "Batches must be a valid input.";
-    }
-    if (!formData.branch) {
-      newErrors.branch = "Branch must be provided.";
-    }
-    if (!formData.avatar) newErrors.photo = "Student avatar is required.";
-    if (!formData.coverImage) newErrors.coverImage = "Student avatar is required.";
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData(prev => ({ ...prev, photo: reader.result }));
-      };
-      reader.readAsDataURL(file);
-    }
+    const { name, value, files } = e.target;
+    setFormData({
+      ...formData,
+      [name]: files ? files[0] : value,
+    });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validate()) return;
 
-    const file = base64ToFile(formData.avatar, "student_photo.png");
-
-    const formDataToSend = new FormData();
-    Object.keys(formData).forEach(key => {
-      if (key !== "avatar") {
-        formDataToSend.append(key, formData[key]);
-      }
+    const data = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      if (value) data.append(key, value);
     });
-    formDataToSend.append("avatar", file); // append photo as File
 
     try {
-      const response = await fetch("https://finallyback-4.onrender.com/api/v1/users/register", {
-        method: "POST",
-        body: formDataToSend,
+      await axios.post("https://finallyback-4.onrender.com/api/v1/users/register", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        navigate("https://finallyback-4.onrender.com/dashboard");
-      } else {
-        setErrors({ general: data.message });
-      }
+      toast.success("Registration successful!");
     } catch (err) {
-      setErrors({ general: "Server error. Please try again later." });
+      const message =
+        err.response?.data?.message || "Registration failed. Try again!";
+      toast.error(message);
     }
-
-    console.log("Form Submitted:", formData);
-    alert("Registration Successful!");
   };
 
   return (
-    <div className="container">
-      <h2 className="title">Student Registration</h2>
-      <form onSubmit={handleSubmit} className="form">
-        <input type="text" name="username" placeholder="username" value={formData.username} onChange={handleChange} />
-        {errors.username && <p className="error">{errors.username}</p>}
+    <div style={{ maxWidth: "600px", margin: "0 auto" }}>
+      <h2>Register</h2>
+      <ToastContainer position="top-center" autoClose={3000} />
 
-        <input type="email" name="email" placeholder="Email" value={formData.email} onChange={handleChange} />
-        {errors.email && <p className="error">{errors.email}</p>}
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
+        <input
+          type="text"
+          name="username"
+          placeholder="Username"
+          required
+          onChange={handleChange}
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          required
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="fullName"
+          placeholder="Full Name"
+          required
+          onChange={handleChange}
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="rfid"
+          placeholder="RFID"
+          required
+          onChange={handleChange}
+        />
+        <input
+          type="number"
+          name="semester"
+          placeholder="Semester"
+          required
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="schooling"
+          placeholder="Schooling Name"
+          required
+          onChange={handleChange}
+        />
+        <input
+          type="number"
+          name="schoolingPer"
+          placeholder="Schooling %"
+          required
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="intermediate"
+          placeholder="Intermediate Name"
+          required
+          onChange={handleChange}
+        />
+        <input
+          type="number"
+          name="intermediatePer"
+          placeholder="Intermediate %"
+          required
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="fatherName"
+          placeholder="Father's Name"
+          required
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="motherName"
+          placeholder="Mother's Name"
+          required
+          onChange={handleChange}
+        />
+        <input
+          type="email"
+          name="parentEmail"
+          placeholder="Parent Email"
+          required
+          onChange={handleChange}
+        />
+        <input
+          type="text"
+          name="cgpa"
+          placeholder="CGPA (Optional)"
+          onChange={handleChange}
+        />
 
-        <input type="text" name="fullName" placeholder="fullName" value={formData.fullName} onChange={handleChange} />
-        {errors.fullName&& <p className="error">{errors.fullName}</p>}
+        <select name="branch" required onChange={handleChange}>
+          <option value="">Select Branch</option>
+          <option value="CSE">CSE</option>
+          <option value="ECE">ECE</option>
+          <option value="ME">ME</option>
+          <option value="CIVIL">CIVIL</option>
+          <option value="EE">EE</option>
+        </select>
 
-        <input type="password" name="password" placeholder="Password" value={formData.password} onChange={handleChange} />
-        {errors.password && <p className="error">{errors.password}</p>}
+        <input
+          type="number"
+          name="batches"
+          placeholder="Batch Year"
+          required
+          onChange={handleChange}
+        />
 
-        <input type="text" name="rfid" placeholder="RFID" value={formData.rfid} onChange={handleChange} />
-        {errors.rfid && <p className="error">{errors.rfid}</p>}
+        <label>Upload Avatar</label>
+        <input
+          type="file"
+          name="avatar"
+          accept="image/*"
+          required
+          onChange={handleChange}
+        />
 
-        <input type="number" name="semester" placeholder="Semester" value={formData.semester} onChange={handleChange} />
-        {errors.semester && <p className="error">{errors.semester}</p>}
+        <label>Upload Cover Image (optional)</label>
+        <input
+          type="file"
+          name="coverImage"
+          accept="image/*"
+          onChange={handleChange}
+        />
 
-        <input type="text" name="fatherName" placeholder="Father's name" value={formData.fatherName} onChange={handleChange} />
-        {errors.fatherName && <p className="error">{errors.fatherName}</p>}
-
-        <input type="text" name="motherName" placeholder="Mother's name" value={formData.motherName} onChange={handleChange} />
-        {errors.motherName && <p className="error">{errors.motherName}</p>}
-
-        <input type="email" name="parentEmail" placeholder="Parent Email" value={formData.parentEmail} onChange={handleChange} />
-        {errors.parentEmail && <p className="error">{errors.parentEmail}</p>}
-
-        <input type="text" name="schooling" placeholder="10th School name" value={formData.schooling} onChange={handleChange} />
-        {errors.schooling && <p className="error">{errors.schooling}</p>}
-
-        <input type="number" name="schoolingPer" placeholder="10th Percentage" value={formData.schoolingPer} onChange={handleChange} />
-        {errors.schoolingPer && <p className="error">{errors.schoolingPer}</p>}
-
-        <input type="text" name="intermediate" placeholder="12th School name" value={formData.intermediate} onChange={handleChange} />
-        {errors.intermediate && <p className="error">{errors.intermediate}</p>}
-
-        <input type="number" name="intermediatePer" placeholder="12th Percentage" value={formData.intermediatePer} onChange={handleChange} />
-        {errors.intermediatePer && <p className="error">{errors.intermediatePer}</p>}
-
-        <input type="number" name="batches" placeholder="Batches" value={formData.batches} onChange={handleChange} />
-        {errors.batches && <p className="error">{errors.batches}</p>}
-
-        <input type="text" name="branch" placeholder="Branch" value={formData.branch} onChange={handleChange} />
-        {errors.branch && <p className="error">{errors.branch}</p>}
-
-        <label className="upload-label">Upload Photo:</label>
-        <input type="file" accept="image/*" onChange={handleImageChange} />
-        {errors.avatar && <p className="error">{errors.avatar}</p>}
-
-        <button type="submit" className="submit-btn">Register</button>
-        <p className="form-footer">
-          Already have an account?{" "}
-          <span className="link" onClick={() => navigate("https://finallyback-4.onrender.com")}>
-            Login here
-          </span>
-        </p>
+        <button type="submit">Register</button>
       </form>
     </div>
   );
 };
 
-export default StudentRegistration;
+export default Register;
