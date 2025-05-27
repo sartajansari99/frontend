@@ -16,7 +16,7 @@ const App = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       const data = await fetch(
-        "https://finallyback-4.onrender.com/api/v1/users/getalluser"
+        "https://finallyback-4.onrender.com/api/v1/admin/getalluser"
       );
       const result = await data.json();
 
