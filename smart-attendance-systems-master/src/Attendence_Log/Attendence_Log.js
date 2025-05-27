@@ -26,7 +26,7 @@ const AttendanceReport = () => {
       {attendanceData.map((entry, index) => (
         <div className="log-row" key={index}>
           <div className="photo-circle">
-            <img src={entry.avatar} alt="sartaj" />
+            <img src={`https://finallyback-4.onrender.com/${entry.avatar}`} alt="sartaj" />
           </div>
           <div className="log-info">
             <span>{entry.name}</span>
