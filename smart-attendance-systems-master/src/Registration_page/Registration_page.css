@@ -1,58 +1,94 @@
- .container {
-          max-width: 600px;
-          margin: auto;
-          padding: 20px;
-          background: #f9f9f9;
-          border-radius: 10px;
-          box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
+/* src/pages/Register.css */
 
-        h2 {
-          text-align: center;
-          margin-bottom: 20px;
-          color: #333;
-        }
+.register-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background: #f5f6fa;
+  min-height: 100vh;
+}
 
-        form {
-          display: flex;
-          flex-direction: column;
-        }
+.register-card {
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
 
-        input, select, button {
-          margin-bottom: 15px;
-          padding: 10px;
-          font-size: 16px;
-          border: 1px solid #ccc;
-          border-radius: 5px;
-        }
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
 
-        input[type="file"] {
-          padding: 3px;
-        }
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
 
-        label {
-          margin-bottom: 5px;
-          font-weight: bold;
-          font-size: 14px;
-          color: #555;
-        }
+input,
+select {
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
 
-        button {
-          background-color: #4CAF50;
-          color: white;
-          cursor: pointer;
-          transition: background-color 0.3s;
-        }
+input:focus,
+select:focus {
+  border-color: #4f46e5;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
 
-        button:hover {
-          background-color: #45a049;
-        }
+label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #444;
+}
 
-        @media (max-width: 600px) {
-          .container {
-            padding: 15px;
-          }
+.error {
+  color: #e63946;
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
 
-          input, select, button {
-            font-size: 14px;
-          }}
+.success {
+  color: #2a9d8f;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.9rem;
+  background: #4f46e5;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+  background: #4338ca;
+}
+
+@media (max-width: 600px) {
+  .register-card {
+    padding: 1.5rem 1rem;
+  }
+
+  input,
+  select {
+    font-size: 0.95rem;
+  }
+}
