@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -47,18 +45,18 @@ const Register = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-      toast.success("Registration successful!");
+      
     } catch (err) {
       const message =
         err.response?.data?.message || "Registration failed. Try again!";
-      toast.error(message);
+  
     }
   };
 
   return (
     <div style={{ maxWidth: "600px", margin: "0 auto" }}>
       <h2>Register</h2>
-      <ToastContainer position="top-center" autoClose={3000} />
+ 
 
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <input
