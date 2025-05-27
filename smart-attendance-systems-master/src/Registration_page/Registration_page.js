@@ -1,3 +1,4 @@
+// src/pages/Register.jsx
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -23,16 +24,22 @@ const Register = () => {
     coverImage: null,
   });
 
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
-    setFormData({
-      ...formData,
-      [name]: files ? files[0] : value,
-    });
+    if (files) {
+      setFormData({ ...formData, [name]: files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError("");
+    setSuccess("");
 
     const data = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
@@ -40,23 +47,26 @@ const Register = () => {
     });
 
     try {
-      await axios.post("https://finallyback-4.onrender.com/api/v1/users/register", data, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      
+      const res = await axios.post(
+        "https://finallyback-4.onrender.com/api/v1/users/register",
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      setSuccess("Registration successful!");
     } catch (err) {
-      const message =
-        err.response?.data?.message || "Registration failed. Try again!";
-  
+      setError(err.response?.data?.message || "Registration failed");
     }
   };
 
   return (
     <div style={{ maxWidth: "600px", margin: "0 auto" }}>
       <h2>Register</h2>
- 
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      {success && <p style={{ color: "green" }}>{success}</p>}
 
       <form onSubmit={handleSubmit} encType="multipart/form-data">
         <input
@@ -156,7 +166,6 @@ const Register = () => {
           placeholder="CGPA (Optional)"
           onChange={handleChange}
         />
-
         <select name="branch" required onChange={handleChange}>
           <option value="">Select Branch</option>
           <option value="CSE">CSE</option>
@@ -165,7 +174,6 @@ const Register = () => {
           <option value="CIVIL">CIVIL</option>
           <option value="EE">EE</option>
         </select>
-
         <input
           type="number"
           name="batches"
