@@ -1,4 +1,3 @@
-// src/pages/Register.jsx
 import React, { useState } from "react";
 import axios from "axios";
 
@@ -24,7 +23,7 @@ const Register = () => {
     coverImage: null,
   });
 
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState("");
 
   const handleChange = (e) => {
@@ -34,11 +33,16 @@ const Register = () => {
     } else {
       setFormData({ ...formData, [name]: value });
     }
+
+    // Clear the error for the current field as user starts typing
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
+    setErrors({});
     setSuccess("");
 
     const data = new FormData();
@@ -58,14 +62,27 @@ const Register = () => {
       );
       setSuccess("Registration successful!");
     } catch (err) {
-      setError(err.response?.data?.message || "Registration failed");
+      const message = err.response?.data?.message || "Registration failed";
+
+      // Map specific errors to fields
+      if (message.includes("Parent email already exists")) {
+        setErrors({ parentEmail: "Parent email already exists" });
+      } else if (message.includes("Email already exists")) {
+        setErrors({ email: "Email already exists" });
+      } else if (message.includes("Username already exists")) {
+        setErrors({ username: "Username already exists" });
+      } else if (message.includes("RFID already exists")) {
+        setErrors({ rfid: "RFID already exists" });
+      } else {
+        setErrors({ general: message });
+      }
     }
   };
 
   return (
     <div style={{ maxWidth: "600px", margin: "0 auto" }}>
       <h2>Register</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {errors.general && <p style={{ color: "red" }}>{errors.general}</p>}
       {success && <p style={{ color: "green" }}>{success}</p>}
 
       <form onSubmit={handleSubmit} encType="multipart/form-data">
@@ -76,6 +93,8 @@ const Register = () => {
           required
           onChange={handleChange}
         />
+        {errors.username && <p style={{ color: "red" }}>{errors.username}</p>}
+
         <input
           type="email"
           name="email"
@@ -83,6 +102,8 @@ const Register = () => {
           required
           onChange={handleChange}
         />
+        {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
+
         <input
           type="text"
           name="fullName"
@@ -90,6 +111,7 @@ const Register = () => {
           required
           onChange={handleChange}
         />
+
         <input
           type="password"
           name="password"
@@ -97,6 +119,7 @@ const Register = () => {
           required
           onChange={handleChange}
         />
+
         <input
           type="text"
           name="rfid"
@@ -104,6 +127,8 @@ const Register = () => {
           required
           onChange={handleChange}
         />
+        {errors.rfid && <p style={{ color: "red" }}>{errors.rfid}</p>}
+
         <input
           type="number"
           name="semester"
@@ -111,6 +136,7 @@ const Register = () => {
           required
           onChange={handleChange}
         />
+
         <input
           type="text"
           name="schooling"
@@ -118,6 +144,7 @@ const Register = () => {
           required
           onChange={handleChange}
         />
+
         <input
           type="number"
           name="schoolingPer"
@@ -125,6 +152,7 @@ const Register = () => {
           required
           onChange={handleChange}
         />
+
         <input
           type="text"
           name="intermediate"
@@ -132,6 +160,7 @@ const Register = () => {
           required
           onChange={handleChange}
         />
+
         <input
           type="number"
           name="intermediatePer"
@@ -139,6 +168,7 @@ const Register = () => {
           required
           onChange={handleChange}
         />
+
         <input
           type="text"
           name="fatherName"
@@ -146,6 +176,7 @@ const Register = () => {
           required
           onChange={handleChange}
         />
+
         <input
           type="text"
           name="motherName"
@@ -153,6 +184,7 @@ const Register = () => {
           required
           onChange={handleChange}
         />
+
         <input
           type="email"
           name="parentEmail"
@@ -160,12 +192,17 @@ const Register = () => {
           required
           onChange={handleChange}
         />
+        {errors.parentEmail && (
+          <p style={{ color: "red" }}>{errors.parentEmail}</p>
+        )}
+
         <input
           type="text"
           name="cgpa"
           placeholder="CGPA (Optional)"
           onChange={handleChange}
         />
+
         <select name="branch" required onChange={handleChange}>
           <option value="">Select Branch</option>
           <option value="CSE">CSE</option>
@@ -174,6 +211,7 @@ const Register = () => {
           <option value="CIVIL">CIVIL</option>
           <option value="EE">EE</option>
         </select>
+
         <input
           type="number"
           name="batches"
