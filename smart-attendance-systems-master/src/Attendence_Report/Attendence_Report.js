@@ -51,7 +51,10 @@ const AttendanceReport = () => {
           students: [],
         };
       }
-      grouped[record.subjectId].students.push(record.fullName);
+      grouped[record.subjectId].students.push({
+        fullName: record.fullName,
+        rfid: record.rfid, // Make sure this is coming from the backend
+      });
     }
     return grouped;
   };
@@ -106,7 +109,11 @@ const AttendanceReport = () => {
             <h3>{popupSubjectName} - Present Students</h3>
             <ul>
               {popupData.length > 0 ? (
-                popupData.map((name, index) => <li key={index}>{name}</li>)
+                popupData.map((student, index) => (
+                  <li key={index}>
+                    <strong>{student.fullName}</strong> – RFID: {student.rfid}
+                  </li>
+                ))
               ) : (
                 <p>No attendance data found.</p>
               )}
