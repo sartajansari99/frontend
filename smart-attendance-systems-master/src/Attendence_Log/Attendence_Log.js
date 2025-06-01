@@ -26,7 +26,11 @@ const AttendanceReport = () => {
       {attendanceData.map((entry, index) => (
         <div className="log-row" key={index}>
           <div className="photo-circle">
-            <img src={entry.avatar} alt={entry.fullName} />
+            <img
+              src={entry.avatar.replace("http://", "https://")}
+              alt={entry.fullName}
+              onError={(e) => (e.target.src = "/default-avatar.png")}
+            />
           </div>
           <div className="log-info">
             <span>Name{entry.fullName}</span>
