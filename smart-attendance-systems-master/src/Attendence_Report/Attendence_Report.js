@@ -2,24 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./Attendence_Report.css";
 import axios from "axios";
 
-const Modal = ({ title, onClose, children }) => {
-  return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <h2>{title}</h2>
-        <div className="modal-body">{children}</div>
-        <button onClick={onClose} className="close-btn">Close</button>
-      </div>
-    </div>
-  );
-};
-
 const AttendanceReport = () => {
   const [subjectsBySemester, setSubjectsBySemester] = useState({});
   const [attendanceData, setAttendanceData] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [students, setStudents] = useState([]);
-  const [selectedSubject, setSelectedSubject] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupData, setPopupData] = useState([]);
+  const [popupSubjectName, setPopupSubjectName] = useState("");
 
   useEffect(() => {
     const fetchSubjects = async () => {
@@ -43,7 +31,7 @@ const AttendanceReport = () => {
         const response = await axios.get(
           "https://finallyback-4.onrender.com/api/v1/admin/attendance_by_subject"
         );
-        setAttendanceData(response.data);
+        setAttendanceData(response.data); // raw student-wise entries
       } catch (err) {
         console.error("Failed to fetch attendance:", err);
       }
@@ -53,21 +41,29 @@ const AttendanceReport = () => {
     fetchAttendance();
   }, []);
 
-  const getAttendanceForSubject = (subjectId) => {
-    const record = attendanceData.find((item) => item.subjectId === subjectId);
-    return record ? record.totalAttendance : 0;
+  // Grouped attendance data by subjectId
+  const getGroupedAttendance = () => {
+    const grouped = {};
+    for (const record of attendanceData) {
+      if (!grouped[record.subjectId]) {
+        grouped[record.subjectId] = {
+          subjectName: record.subjectName,
+          students: [],
+        };
+      }
+      grouped[record.subjectId].students.push(record.fullName);
+    }
+    return grouped;
   };
 
-  const handleTotalClick = async (subjectId) => {
-    try {
-      const response = await axios.get(
-        `https://finallyback-4.onrender.com/api/v1/admin/attendance_by_subject/${subjectId}`
-      );
-      setStudents(response.data.students || []);
-      setSelectedSubject(subjectId);
-      setShowModal(true);
-    } catch (error) {
-      console.error("Error fetching students:", error);
+  const groupedAttendance = getGroupedAttendance();
+
+  const handleAttendanceClick = (subjectId) => {
+    const subjectData = groupedAttendance[subjectId];
+    if (subjectData) {
+      setPopupSubjectName(subjectData.subjectName);
+      setPopupData(subjectData.students);
+      setShowPopup(true);
     }
   };
 
@@ -75,16 +71,18 @@ const AttendanceReport = () => {
 
   return (
     <div className="report-container">
-      <h1 className="title">ATTENDENCE REPORT</h1>
+      <h1 className="title">ATTENDANCE REPORT</h1>
 
-      <h2 className="today-title">Today's Attendance Report</h2>
+      <h2 className="today-title">Today’s Attendance Report</h2>
 
       {semesters.map((semester) => (
         <div className="semester-section" key={semester}>
           <h3 className="semester-title">Semester {semester}</h3>
           <div className="subject-row">
             {subjectsBySemester[semester].map((subject, index) => (
-              <div className="cell" key={index}>{subject.name}</div>
+              <div className="cell" key={index}>
+                {subject.name}
+              </div>
             ))}
           </div>
           <div className="subject-row">
@@ -92,30 +90,32 @@ const AttendanceReport = () => {
               <div
                 className="cell clickable"
                 key={index}
-                onClick={() => handleTotalClick(subject.id)}
+                onClick={() => handleAttendanceClick(subject.id)}
               >
-                {getAttendanceForSubject(subject.id)}
+                {groupedAttendance[subject.id]?.students.length || 0}
               </div>
             ))}
           </div>
         </div>
       ))}
 
-      {showModal && (
-        <Modal
-          title="Present Students"
-          onClose={() => setShowModal(false)}
-        >
-          {students.length === 0 ? (
-            <p>No students found.</p>
-          ) : (
+      {/* Popup Modal */}
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-modal">
+            <h3>{popupSubjectName} - Present Students</h3>
             <ul>
-              {students.map((student, i) => (
-                <li key={i}>{student.fullName}</li>
-              ))}
+              {popupData.length > 0 ? (
+                popupData.map((name, index) => <li key={index}>{name}</li>)
+              ) : (
+                <p>No attendance data found.</p>
+              )}
             </ul>
-          )}
-        </Modal>
+            <button className="close-btn" onClick={() => setShowPopup(false)}>
+              Close
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
