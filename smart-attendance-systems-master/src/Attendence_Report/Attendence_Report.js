@@ -49,19 +49,6 @@ const AttendanceReport = () => {
     <div className="report-container">
       <h1 className="title">ATTENDENCE REPORT</h1>
 
-      <div className="top-makers">
-        {[1, 2, 3].map((i) => (
-          <div className="maker-card" key={i}>
-            <div className="photo-circle">PHOTO</div>
-            <div className="student-info">
-              <p>NAME–SARTAJ ANSARI</p>
-              <p>BRANCH–CSE</p>
-              <p>SEMESTER–1</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
       <h2 className="today-title">Todays Attendance Report</h2>
 
       {semesters.map((semester) => (
