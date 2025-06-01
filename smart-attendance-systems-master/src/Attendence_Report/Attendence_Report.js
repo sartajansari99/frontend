@@ -81,21 +81,17 @@ const AttendanceReport = () => {
       {semesters.map((semester) => (
         <div className="semester-section" key={semester}>
           <h3 className="semester-title">Semester {semester}</h3>
-          <div className="subject-row">
+
+          <div className="grid-container">
             {subjectsBySemester[semester].map((subject, index) => (
-              <div className="cell" key={index}>
-                {subject.name}
-              </div>
-            ))}
-          </div>
-          <div className="subject-row">
-            {subjectsBySemester[semester].map((subject, index) => (
-              <div
-                className="cell clickable"
-                key={index}
-                onClick={() => handleAttendanceClick(subject.id)}
-              >
-                {groupedAttendance[subject.id]?.students.length || 0}
+              <div key={index} className="subject-attendance-pair">
+                <div className="cell header-cell">{subject.name}</div>
+                <div
+                  className="cell clickable"
+                  onClick={() => handleAttendanceClick(subject.id)}
+                >
+                  {groupedAttendance[subject.id]?.students.length || 0}
+                </div>
               </div>
             ))}
           </div>
