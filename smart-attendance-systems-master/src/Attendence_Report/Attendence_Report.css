@@ -159,43 +159,40 @@
   margin-bottom: 8px;
 }
 
-  /* ... (your existing CSS remains unchanged) ... */
-
-/* 📱 Mobile Responsive Enhancements */
-@media (max-width: 768px) {
+/* Responsive styles for mobile devices only */
+@media (max-width: 600px) {
   .report-container {
-    padding: 10px;
-    border-radius: 20px;
+    padding: 15px;
+    margin: 15px auto;
   }
 
   .title {
-    font-size: 24px;
+    font-size: 24px; /* smaller than 32px */
   }
 
   .top-makers {
     flex-direction: column;
-    align-items: center;
     gap: 20px;
+    margin-bottom: 20px;
   }
 
   .maker-card {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    justify-content: flex-start;
+    gap: 10px;
   }
 
   .photo-circle {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
+    font-size: 14px; /* smaller font inside circle */
   }
 
   .student-info {
     font-size: 12px;
-    text-align: center;
   }
 
   .today-title {
-    font-size: 18px;
+    font-size: 16px; /* smaller than 20px */
   }
 
   .semester-title {
@@ -203,33 +200,37 @@
   }
 
   .subject-row {
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    padding: 5px 0;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 3px 0;
   }
 
   .cell {
-    min-width: 200px;
-    margin-left: 0;
-  }
-
-  .grid-container {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 10px;
+    min-width: 60px; /* smaller */
+    padding: 6px;
+    font-size: 12px;
+    margin-left: 10px;
   }
 
   .popup-modal {
     width: 90%;
+    max-height: 70vh;
     padding: 1rem;
   }
 
-  .popup-modal h3 {
-    font-size: 16px;
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
   }
 
-  .close-btn {
+  .subject-attendance-pair {
     width: 100%;
-    padding: 10px;
+  }
+
+  .header-cell {
+    font-size: 14px;
   }
 }
+
+
+  
