@@ -29,7 +29,6 @@ const AttendanceReport = () => {
             <img
               src={entry.avatar.replace("http://", "https://")}
               alt={entry.fullName}
-              onError={(e) => (e.target.src = "/default-avatar.png")}
             />
           </div>
           <div className="log-info">
