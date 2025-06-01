@@ -139,8 +139,6 @@
 }
 
 .cell {
-  display: flex;
-  align-items: center;
   padding: 10px;
   background-color: white;
   text-align: center;
@@ -161,4 +159,77 @@
   margin-bottom: 8px;
 }
 
-  
+  /* ... (your existing CSS remains unchanged) ... */
+
+/* 📱 Mobile Responsive Enhancements */
+@media (max-width: 768px) {
+  .report-container {
+    padding: 10px;
+    border-radius: 20px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .top-makers {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .maker-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .photo-circle {
+    width: 80px;
+    height: 80px;
+  }
+
+  .student-info {
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .today-title {
+    font-size: 18px;
+  }
+
+  .semester-title {
+    font-size: 16px;
+  }
+
+  .subject-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 0;
+  }
+
+  .cell {
+    min-width: 200px;
+    margin-left: 0;
+  }
+
+  .grid-container {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+  }
+
+  .popup-modal {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .popup-modal h3 {
+    font-size: 16px;
+  }
+
+  .close-btn {
+    width: 100%;
+    padding: 10px;
+  }
+}
