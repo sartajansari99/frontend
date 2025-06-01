@@ -29,7 +29,7 @@ const AttendanceReport = () => {
             <img src={`https://finallyback-4.onrender.com/${entry.avatar}`} alt="sartaj" />
           </div>
           <div className="log-info">
-            <span>{entry.fullName}</span>
+            <span>Name{entry.fullName}</span>
             <span>SEMESTER {entry.semester}</span>
             <span>{entry.subject}</span>
             <span>{entry.subjectCode}</span>
