@@ -190,7 +190,7 @@
   .cell {
     font-size: 14px;
     padding: 6px;
-    min-width: 60px; /* smaller min width to fit */
+    min-width: 40px; /* smaller min width to fit */
   }
 
   .header-cell {
