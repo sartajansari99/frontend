@@ -229,17 +229,17 @@
   }
 
   .grid-container {
-    gap: 8px;
+    gap: 6px;
   }
 
   .cell {
     font-size: 12px;
     padding: 4px;
-    min-width: 50px; /* smaller min width for very small screens */
+    min-width: 40px; /* smaller min width for very small screens */
   }
 
   .popup-modal {
-    width: 95%;
+    width: 75%;
     max-height: 60vh;
   }
 }
