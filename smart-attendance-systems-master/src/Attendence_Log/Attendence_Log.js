@@ -27,7 +27,7 @@ const AttendanceReport = () => {
         <div className="log-row" key={index}>
           <div className="photo-circle">
             <img
-              src={entry.avatar.replace("http://", "https://")}
+              src={entry.avatar?.replace("http://", "https://")}
               alt={entry.fullName}
             />
           </div>
