@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Attendence_Report.css";
+import "./Attendance_Report.css"; // ✅ fixed spelling
 import axios from "axios";
 
 const AttendanceReport = () => {
@@ -13,8 +13,12 @@ const AttendanceReport = () => {
           "https://finallyback-4.onrender.com/api/v1/admin/getAllSubjects"
         );
         const grouped = response.data.reduce((acc, subject) => {
-          if (!acc[subject.semester]) acc[subject.semester] = [];
-          acc[subject.semester].push({ name: subject.name, id: subject._id });
+          const semester = subject.semester || "Unknown";
+          if (!acc[semester]) acc[semester] = [];
+          acc[semester].push({
+            name: subject.name || "Unnamed",
+            id: subject._id || "",
+          });
           return acc;
         }, {});
         setSubjectsBySemester(grouped);
@@ -28,7 +32,7 @@ const AttendanceReport = () => {
         const response = await axios.get(
           "https://finallyback-4.onrender.com/api/v1/admin/attendance_by_subject"
         );
-        setAttendanceData(response.data);
+        setAttendanceData(response.data || []);
       } catch (err) {
         console.error("Failed to fetch attendance:", err);
       }
@@ -47,26 +51,26 @@ const AttendanceReport = () => {
 
   return (
     <div className="report-container">
-      <h1 className="title">ATTENDENCE REPORT</h1>
+      <h1 className="title">ATTENDANCE REPORT</h1>
 
       <div className="top-makers">
         {[1, 2, 3].map((i) => (
           <div className="maker-card" key={i}>
             <div className="photo-circle">PHOTO</div>
             <div className="student-info">
-              <p>NAME–SARTAJ ANSARI</p>
-              <p>BRANCH–CSE</p>
-              <p>SEMESTER–1</p>
+              <p>NAME – SARTAJ ANSARI</p>
+              <p>BRANCH – CSE</p>
+              <p>SEMESTER – 1</p>
             </div>
           </div>
         ))}
       </div>
 
-      <h2 className="today-title">Todays Attendance Report</h2>
+      <h2 className="today-title">Today's Attendance Report</h2>
 
       {semesters.map((semester) => (
         <div className="semester-section" key={semester}>
-          <h3 className="semester-title">semester {semester}</h3>
+          <h3 className="semester-title">Semester {semester}</h3>
           <div className="subject-row">
             {subjectsBySemester[semester].map((subject, index) => (
               <div className="cell" key={index}>
