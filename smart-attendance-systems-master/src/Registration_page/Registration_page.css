@@ -90,3 +90,91 @@ label {
     font-size: 0.95rem;
   }
 }
+
+
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  background-color: #f4f4f4;
+  min-height: 100vh;
+}
+
+.register-card {
+  background: white;
+  padding: 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+input,
+select {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+label {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.submit-btn:disabled {
+  background-color: #7fbce9;
+  cursor: not-allowed;
+}
+
+.error {
+  color: red;
+  font-size: 0.85em;
+  margin-top: 5px;
+}
+
+.success {
+  color: green;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.loader {
+  margin: 10px auto;
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #3498db;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
