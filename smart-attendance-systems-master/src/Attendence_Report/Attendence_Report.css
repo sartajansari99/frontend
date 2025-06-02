@@ -210,36 +210,159 @@
   }
 }
 
-@media (max-width: 480px) {
-  .report-container {
-    padding: 10px;
-    margin: 10px;
-  }
 
+
+/* Attendence_Report.css */
+:root {
+  --primary: #4f46e5;
+  --bg: #f9fafb;
+  --text: #111827;
+  --accent: #e5e7eb;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.report-container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 1rem;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.today-title {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.semester-section {
+  margin-bottom: 2rem;
+}
+
+.semester-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1rem;
+}
+
+.subject-attendance-pair {
+  background: white;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.cell {
+  padding: 0.8rem;
+  text-align: center;
+}
+
+.header-cell {
+  font-weight: bold;
+  background-color: var(--primary);
+  color: white;
+}
+
+.clickable {
+  background-color: #f3f4f6;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.clickable:hover {
+  background-color: #e0e7ff;
+}
+
+/* Popup Styles */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 1rem;
+}
+
+.popup-modal {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.popup-modal h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  color: var(--primary);
+}
+
+.popup-modal ul {
+  padding-left: 1rem;
+  margin-bottom: 1rem;
+}
+
+.popup-modal li {
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.close-btn {
+  background-color: var(--primary);
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  float: right;
+}
+
+.close-btn:hover {
+  background-color: #4338ca;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
   .title {
-    font-size: 20px;
+    font-size: 1.5rem;
   }
 
   .today-title {
-    font-size: 16px;
-  }
-
-  .semester-title {
-    font-size: 14px;
+    font-size: 1rem;
   }
 
   .grid-container {
-    gap: 6px;
-  }
-
-  .cell {
-    font-size: 12px;
-    padding: 4px;
-    min-width: 40px; /* smaller min width for very small screens */
+    grid-template-columns: 1fr;
   }
 
   .popup-modal {
-    width: 75%;
-    max-height: 60vh;
+    max-width: 90%;
   }
 }
