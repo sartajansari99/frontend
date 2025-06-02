@@ -77,9 +77,29 @@
     color: white;
   }
   
-  @media (max-width: 600px) {
-    .subject-form {
-      grid-template-columns: 1fr;
-    }
+ @media (max-width: 768px) {
+  .subject-form {
+    flex-direction: column;
   }
-  
+
+  .subject-form input,
+  .subject-form select {
+    width: 100%;
+  }
+
+  .subject-table table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .subject-table th,
+  .subject-table td {
+    font-size: 0.85rem;
+    padding: 0.6rem;
+  }
+
+  .subject-table td button {
+    margin-top: 0.3rem;
+  }
+}
