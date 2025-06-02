@@ -32,7 +32,7 @@ const AttendanceReport = () => {
             />
           </div>
           <div className="log-info">
-            Name: <span color="red">{entry.fullName}</span>
+            <span>Name: {entry.fullName}</span>
             <span>SEMESTER: {entry.semester}</span>
             <span>Subject: {entry.subject}</span>
             <span>Code: {entry.subjectCode}</span>
