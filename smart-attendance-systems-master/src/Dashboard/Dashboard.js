@@ -6,7 +6,7 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom";
-import "./Dashboard.css";
+import "./Dashboard.css"; // Ensure you have loader CSS added here
 import AdminPanel from "../Admin_Dashboard/AdminDashboard";
 import Students from "../Students/Students";
 import ManageSubject from "../Manage_Subject/Manage_Subject";
@@ -18,10 +18,11 @@ function LoginSignup() {
   const [role, setRole] = useState("Client");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false); // Loader state
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    adminCode: "", // Optional: Only for Admins
+    adminCode: "",
   });
 
   const navigate = useNavigate();
@@ -34,6 +35,7 @@ function LoginSignup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // Start loader
 
     try {
       const endpoint =
@@ -59,6 +61,8 @@ function LoginSignup() {
       }
     } catch (err) {
       setError("Server error. Please try again later.");
+    } finally {
+      setLoading(false); // Stop loader
     }
   };
 
@@ -82,72 +86,81 @@ function LoginSignup() {
         <form onSubmit={handleSubmit}>
           <div className="right-section">
             <div className="login-box">
-              <div className="role-selection-radio">
-                <label>
-                  <input
-                    type="radio"
-                    name="role"
-                    value="Client"
-                    checked={role === "Client"}
-                    onChange={() => setRole("Client")}
-                  />{" "}
-                  Client
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="role"
-                    value="Admin"
-                    checked={role === "Admin"}
-                    onChange={() => setRole("Admin")}
-                  />{" "}
-                  Admin
-                </label>
-              </div>
-
-              <h2>{role} Login</h2>
-
-              <label>Email</label>
-              <input
-                type="text"
-                name="email"
-                placeholder="Enter email"
-                onChange={handleChange}
-              />
-
-              <label>Password</label>
-              <input
-                type="password"
-                name="password"
-                placeholder="Enter password"
-                onChange={handleChange}
-              />
-
-              {role === "Admin" && (
+              {loading ? (
+                <div className="loader-container">
+                  <div className="spinner"></div>
+                  <p>Signing in...</p>
+                </div>
+              ) : (
                 <>
-                  <label>Admin Code</label>
+                  <div className="role-selection-radio">
+                    <label>
+                      <input
+                        type="radio"
+                        name="role"
+                        value="Client"
+                        checked={role === "Client"}
+                        onChange={() => setRole("Client")}
+                      />{" "}
+                      Client
+                    </label>
+                    <label>
+                      <input
+                        type="radio"
+                        name="role"
+                        value="Admin"
+                        checked={role === "Admin"}
+                        onChange={() => setRole("Admin")}
+                      />{" "}
+                      Admin
+                    </label>
+                  </div>
+
+                  <h2>{role} Login</h2>
+
+                  <label>Email</label>
                   <input
                     type="text"
-                    name="adminCode"
-                    placeholder="Enter admin code"
+                    name="email"
+                    placeholder="Enter email"
                     onChange={handleChange}
                   />
+
+                  <label>Password</label>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter password"
+                    onChange={handleChange}
+                  />
+
+                  {role === "Admin" && (
+                    <>
+                      <label>Admin Code</label>
+                      <input
+                        type="text"
+                        name="adminCode"
+                        placeholder="Enter admin code"
+                        onChange={handleChange}
+                      />
+                    </>
+                  )}
+
+                  <div className="remember-section">
+                    <input type="checkbox" /> <span>Remember me</span>
+                  </div>
+
+                  {error && <p className="error">{error}</p>}
+                  {success && <p className="success">{success}</p>}
+
+                  <button className="signin-button">Sign in</button>
+
+                  <p className="forgot">Forgot password?</p>
+                  <p className="register">
+                    Don’t have an account? <a href="/register">Register here</a>
+                  </p>
                 </>
               )}
-
-              <div className="remember-section">
-                <input type="checkbox" /> <span>Remember me</span>
-              </div>
-
-              {error && <p className="error">{error}</p>}
-              {success && <p className="success">{success}</p>}
-
-              <button className="signin-button">Sign in</button>
-
-              <p className="forgot">Forgot password?</p>
-              <p className="register">
-                Don’t have an account? <a href="/register">Register here</a>
-              </p>
             </div>
           </div>
         </form>
@@ -155,9 +168,11 @@ function LoginSignup() {
     </div>
   );
 }
+
 function ClientPage() {
   return <h2 style={{ padding: "2rem" }}>Welcome Client</h2>;
 }
+
 function App() {
   return (
     <Router>
