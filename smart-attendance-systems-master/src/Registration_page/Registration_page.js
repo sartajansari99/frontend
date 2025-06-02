@@ -26,7 +26,6 @@ const Register = () => {
 
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -45,7 +44,6 @@ const Register = () => {
     e.preventDefault();
     setErrors({});
     setSuccess("");
-    setLoading(true);
 
     const data = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
@@ -77,8 +75,6 @@ const Register = () => {
       } else {
         setErrors({ general: message });
       }
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -88,23 +84,54 @@ const Register = () => {
         <h2>Register</h2>
         {errors.general && <p className="error">{errors.general}</p>}
         {success && <p className="success">{success}</p>}
-        {loading && <div className="loader"></div>}
 
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           {[
-            { type: "text", name: "username", placeholder: "Username", error: errors.username },
-            { type: "email", name: "email", placeholder: "Email", error: errors.email },
+            {
+              type: "text",
+              name: "username",
+              placeholder: "Username",
+              error: errors.username,
+            },
+            {
+              type: "email",
+              name: "email",
+              placeholder: "Email",
+              error: errors.email,
+            },
             { type: "text", name: "fullName", placeholder: "Full Name" },
             { type: "password", name: "password", placeholder: "Password" },
-            { type: "text", name: "rfid", placeholder: "RFID", error: errors.rfid },
+            {
+              type: "text",
+              name: "rfid",
+              placeholder: "RFID",
+              error: errors.rfid,
+            },
             { type: "number", name: "semester", placeholder: "Semester" },
             { type: "text", name: "schooling", placeholder: "Schooling Name" },
-            { type: "number", name: "schoolingPer", placeholder: "Schooling %" },
-            { type: "text", name: "intermediate", placeholder: "Intermediate Name" },
-            { type: "number", name: "intermediatePer", placeholder: "Intermediate %" },
+            {
+              type: "number",
+              name: "schoolingPer",
+              placeholder: "Schooling %",
+            },
+            {
+              type: "text",
+              name: "intermediate",
+              placeholder: "Intermediate Name",
+            },
+            {
+              type: "number",
+              name: "intermediatePer",
+              placeholder: "Intermediate %",
+            },
             { type: "text", name: "fatherName", placeholder: "Father's Name" },
             { type: "text", name: "motherName", placeholder: "Mother's Name" },
-            { type: "email", name: "parentEmail", placeholder: "Parent Email", error: errors.parentEmail },
+            {
+              type: "email",
+              name: "parentEmail",
+              placeholder: "Parent Email",
+              error: errors.parentEmail,
+            },
             { type: "text", name: "cgpa", placeholder: "CGPA (Optional)" },
             { type: "number", name: "batches", placeholder: "Batch Year" },
           ].map((field) => (
@@ -152,8 +179,8 @@ const Register = () => {
             />
           </div>
 
-          <button type="submit" className="submit-btn" disabled={loading}>
-            {loading ? "Registering..." : "Register"}
+          <button type="submit" className="submit-btn">
+            Register
           </button>
         </form>
       </div>
