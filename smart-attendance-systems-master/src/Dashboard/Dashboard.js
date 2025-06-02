@@ -171,7 +171,10 @@ function LoginSignup() {
 
 function ClientPage() {
   return (
+    <>
       <h2 style={{ padding: "2rem" }}>Welcome Client</h2>
+      <h4>Working on this pages</h4>
+    </>
   );
 }
 
