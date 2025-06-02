@@ -1,217 +1,3 @@
-/* AttendanceReport.css */
-.report-container {
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 20px;
-    background: #f5f5f5;
-    border-radius: 30px;
-    font-family: Arial, sans-serif;
-    text-align: center;
-  }
-  
-  .title {
-    color: red;
-    font-size: 32px;
-    margin-bottom: 30px;
-  }
-  
-  .top-makers {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 30px;
-  }
-  
-  .maker-card {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-  }
-  
-  .photo-circle {
-    width: 100px;
-    height: 100px;
-    background: #d3d3d3;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-  }
-  
-  .student-info {
-    text-align: left;
-    font-size: 14px;
-  }
-  
-  .today-title {
-    color: red;
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
-  
-  .semester-section {
-    background: #e9c2c2;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    padding: 10px 0;
-  }
-  
-  .semester-title {
-    color: green;
-    margin-bottom: 10px;
-    font-size: 18px;
-  }
-  
-  .subject-row {
-    display: flex;
-    justify-content: center;
-    justify-content: center;
-    gap: 10px;
-    padding: 5px 0;
-  }
-  
-  .cell {
-    background: #fff;
-    margin-left: 20px;
-    padding: 10px;
-    border-radius: 8px;
-    min-width: 80px;
-    font-weight: bold;
-  }
-  
-.popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
-
-.popup-modal {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 10px;
-  width: 400px;
-  max-height: 80vh;
-  overflow-y: auto;
-}
-
-.popup-modal h3 {
-  margin-bottom: 1rem;
-  color: #333;
-}
-
-.close-btn {
-  margin-top: 1rem;
-  background: #e74c3c;
-  color: white;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.clickable {
-  cursor: pointer;
-  background: #ffffff;
-  transition: background 0.3s ease;
-}
-
-.clickable:hover {
-  background: #f0f0f0;
-}
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-  margin-bottom: 20px;
-}
-
-.subject-attendance-pair {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.cell {
-  padding: 10px;
-  background-color: white;
-  text-align: center;
-  border-radius: 8px;
-  font-weight: bold;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: 100%;
-}
-
-.clickable {
-  cursor: pointer;
-  color: #007bff;
-}
-
-.header-cell {
-  background-color: #f0f0f0;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-@media (max-width: 768px) {
-  .report-container {
-    padding: 15px;
-    margin: 15px;
-  }
-
-  .title {
-    font-size: 24px;
-  }
-
-  .today-title {
-    font-size: 18px;
-  }
-
-  .semester-section {
-    padding: 8px 10px;
-    margin-bottom: 15px;
-  }
-
-  .semester-title {
-    font-size: 16px;
-    margin-bottom: 8px;
-  }
-
-  /* Keep 5 columns, but reduce gap */
-  .grid-container {
-    gap: 10px;
-  }
-
-  .cell {
-    font-size: 14px;
-    padding: 6px;
-    min-width: 40px; /* smaller min width to fit */
-  }
-
-  .header-cell {
-    font-size: 14px;
-    margin-bottom: 6px;
-  }
-
-  .popup-modal {
-    width: 90%;
-    max-height: 70vh;
-    padding: 1rem;
-  }
-
-  .close-btn {
-    padding: 8px 16px;
-    font-size: 14px;
-  }
-}
-
-
-
 /* Attendence_Report.css */
 :root {
   --primary: #4f46e5;
@@ -348,8 +134,25 @@ body {
   background-color: #4338ca;
 }
 
+/* Responsive */
+@media (max-width: 600px) {
+  .title {
+    font-size: 1.5rem;
+  }
 
-/* Popup Styles (add or enhance in existing file) */
+  .today-title {
+    font-size: 1rem;
+  }
+
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+
+  .popup-modal {
+    max-width: 90%;
+  }
+}
+
 .popup-modal ul {
   list-style: none; /* removes bullets */
   padding: 0;
@@ -380,22 +183,3 @@ body {
   color: #6b7280;
 }
 
-
-/* Responsive */
-@media (max-width: 600px) {
-  .title {
-    font-size: 1.5rem;
-  }
-
-  .today-title {
-    font-size: 1rem;
-  }
-
-  .grid-container {
-    grid-template-columns: 1fr;
-  }
-
-  .popup-modal {
-    max-width: 90%;
-  }
-}
