@@ -32,13 +32,13 @@ const AttendanceReport = () => {
             />
           </div>
           <div className="log-info">
-            <span>Name{entry.fullName}</span>
-            <span>SEMESTER {entry.semester}</span>
-            <span>{entry.subject}</span>
-            <span>{entry.subjectCode}</span>
-            <span>{entry.time}</span>
-            <span>{entry.day}</span>
-            <span>{entry.date}</span>
+            <span>Name: {entry.fullName}</span>
+            <span>SEMESTER: {entry.semester}</span>
+            <span>Subject: {entry.subject}</span>
+            <span>Code: {entry.subjectCode}</span>
+            <span>Time: {entry.time}</span>
+            <span>Day: {entry.day}</span>
+            <span>Date: {entry.date}</span>
           </div>
         </div>
       ))}
