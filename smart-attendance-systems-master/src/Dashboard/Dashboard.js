@@ -48,17 +48,16 @@ function LoginSignup() {
         body: JSON.stringify(formData),
       });
 
-      const data = await response.json();
-
       if (response.ok) {
+        const data = await response.json();
         setSuccess(data.message);
-      console.log(data);
-      
+        console.log(data);
+
         localStorage.setItem("token", data.accessToken);
         localStorage.setItem("user", JSON.stringify(data.user));
         navigate(role === "Admin" ? "/admin/admin_dashboard" : "/client");
       } else {
-        setError(data.message || "Invalid credentials");
+        // setError(data.message || "Invalid credentials");
       }
     } catch (err) {
       setError("Server error. Please try again later.");
