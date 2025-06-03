@@ -19,7 +19,6 @@
   margin-top: 1rem;
 }
 
-/* StudentCard.css */
 .student-card {
   background: #e0e0e0;
   padding: 1rem;
@@ -36,7 +35,6 @@
  
 }
 
-/* FilterSidebar.css */
 .filter-sidebar {
   width: 200px;
   background: #f1f1f1;
@@ -67,7 +65,6 @@
   color: #007bff;
 }
 
-/* SearchBar.css */
 .search-bar {
   background: #f3f3f3;
   padding: 0.5rem;
@@ -87,7 +84,6 @@
   color: #666;
 }
 
-/* Pagination.css */
 .pagination {
   display: flex;
   justify-content: center;
@@ -132,7 +128,6 @@
   margin-top: 1rem;
 }
 
-/* StudentCard.css */
 .student-card {
   background: #e0e0e0;
   padding: 0.5rem;
@@ -145,8 +140,6 @@
   background: #d0d0d0;
 }
 
-
-/* FilterSidebar.css */
 .filter-sidebar {
  display: none;
 }
@@ -171,7 +164,6 @@
   color: #007bff;
 }
 
-/* SearchBar.css */
 .search-bar {
   background: #f3f3f3;
   padding: 0.5rem;
@@ -191,7 +183,6 @@
   color: #666;
 }
 
-/* Pagination.css */
 .pagination {
   display: flex;
   justify-content: center;

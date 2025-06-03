@@ -31,7 +31,7 @@ const AttendanceReport = () => {
         const response = await axios.get(
           "https://finallyback-4.onrender.com/api/v1/admin/attendance_by_subject"
         );
-        setAttendanceData(response.data); // raw student-wise entries
+        setAttendanceData(response.data);
       } catch (err) {
         console.error("Failed to fetch attendance:", err);
       }
@@ -41,7 +41,6 @@ const AttendanceReport = () => {
     fetchAttendance();
   }, []);
 
-  // Grouped attendance data by subjectId
   const getGroupedAttendance = () => {
     const grouped = {};
     for (const record of attendanceData) {
@@ -53,7 +52,7 @@ const AttendanceReport = () => {
       }
       grouped[record.subjectId].students.push({
         fullName: record.fullName,
-        rfid: record.rfid, // Make sure this is coming from the backend
+        rfid: record.rfid,
       });
     }
     return grouped;
@@ -97,8 +96,6 @@ const AttendanceReport = () => {
           </div>
         </div>
       ))}
-
-      {/* Popup Modal */}
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup-modal">

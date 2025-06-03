@@ -1,4 +1,3 @@
-// App.js
 import React, { useState } from "react";
 import {
   BrowserRouter as Router,
@@ -6,7 +5,7 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom";
-import "./Dashboard.css"; // Ensure you have loader CSS added here
+import "./Dashboard.css";
 import AdminPanel from "../Admin_Dashboard/AdminDashboard";
 import Students from "../Students/Students";
 import ManageSubject from "../Manage_Subject/Manage_Subject";
@@ -18,7 +17,7 @@ function LoginSignup() {
   const [role, setRole] = useState("Client");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [loading, setLoading] = useState(false); // Loader state
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -35,7 +34,7 @@ function LoginSignup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Start loader
+    setLoading(true);
 
     try {
       const endpoint =
@@ -62,7 +61,7 @@ function LoginSignup() {
     } catch (err) {
       setError("Server error. Please try again later.");
     } finally {
-      setLoading(false); // Stop loader
+      setLoading(false);
     }
   };
 
