@@ -5,7 +5,6 @@ import FilterSidebar from "./FilterSidebar";
 import SearchBar from "./SearchBar";
 import Pagination from "./Pagination";
 import "./Students.css";
-const token = localStorage.getItem("accessToken");
 
 const App = () => {
   const [students, setStudents] = useState([]);
@@ -16,6 +15,7 @@ const App = () => {
 
   useEffect(() => {
     const fetchStudents = async () => {
+      const token = localStorage.getItem("accessToken");
       const data = await fetch(
         "https://finallyback-4.onrender.com/api/v1/admin/getalluser",
         {
