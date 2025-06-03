@@ -50,10 +50,6 @@ function LoginSignup() {
       const data = await response.json();
       if (response.ok) {
         setSuccess(data.message);
-        console.log(data);
-
-        localStorage.setItem("token", data.data.accessToken);
-        localStorage.setItem("user", JSON.stringify(data.data.user.fullName));
         navigate(role === "Admin" ? "/admin/admin_dashboard" : "/client");
       } else {
         setError(data.message || "Invalid credentials");
