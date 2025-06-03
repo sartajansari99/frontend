@@ -61,6 +61,7 @@ const Register = () => {
         }
       );
       setSuccess("Registration successful!");
+      setFormData(" ")
     } catch (err) {
       const message = err.response?.data?.message || "Registration failed";
 
