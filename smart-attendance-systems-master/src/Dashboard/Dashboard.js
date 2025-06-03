@@ -47,9 +47,8 @@ function LoginSignup() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-
+      const data = await response.json();
       if (response.ok) {
-        const data = await response.json();
         setSuccess(data.message);
         console.log(data);
 
@@ -57,7 +56,7 @@ function LoginSignup() {
         localStorage.setItem("user", JSON.stringify(data.data.user));
         navigate(role === "Admin" ? "/admin/admin_dashboard" : "/client");
       } else {
-        // setError(data.message || "Invalid credentials");
+        setError(data.message || "Invalid credentials");
       }
     } catch (err) {
       setError("Server error. Please try again later.");
