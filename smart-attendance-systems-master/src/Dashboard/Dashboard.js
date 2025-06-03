@@ -51,9 +51,6 @@ function LoginSignup() {
       const data = await response.json();
 
       if (response.ok) {
-        const res_data = await response.json();
-        console.log(res_data);
-
         setSuccess(data.message);
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
