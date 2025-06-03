@@ -75,10 +75,10 @@ function LoginSignup() {
       <div className="main-container">
         <div className="left-section">
           <h1>
-            Smart Tracking System <br /> <span>for your business</span>
+            Smart Attendence Tracking System <br /> <span>for your business</span>
           </h1>
           <p>
-            Welcome to our smart tracking system. Easily manage clients and
+            Welcome to our smart Attendence tracking system. Easily manage clients and
             admins from one place.
           </p>
         </div>
