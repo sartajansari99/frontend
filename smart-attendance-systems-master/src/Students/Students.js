@@ -31,7 +31,7 @@ const App = () => {
     if (res.status === 401) {
       // Try to refresh token
       const refreshRes = await fetch(
-        "https://finallyback.onrender.com/api/v1/refresh-token",
+        "https://finallyback.onrender.com/api/v1/admin/refresh-token",
         {
           method: "GET",
           credentials: "include",
