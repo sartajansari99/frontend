@@ -54,7 +54,7 @@ function LoginSignup() {
         console.log(data);
 
         localStorage.setItem("token", data.data.accessToken);
-        localStorage.setItem("user", JSON.stringify(data.user));
+        localStorage.setItem("user", JSON.stringify(data.data.user));
         navigate(role === "Admin" ? "/admin/admin_dashboard" : "/client");
       } else {
         // setError(data.message || "Invalid credentials");
