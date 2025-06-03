@@ -51,6 +51,9 @@ function LoginSignup() {
       const data = await response.json();
 
       if (response.ok) {
+        const res_data = await response.json();
+        console.log(res_data);
+
         setSuccess(data.message);
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
@@ -74,11 +77,12 @@ function LoginSignup() {
       <div className="main-container">
         <div className="left-section">
           <h1>
-            Smart Attendence Tracking System <br /> <span>for your business</span>
+            Smart Attendence Tracking System <br />{" "}
+            <span>for your business</span>
           </h1>
           <p>
-            Welcome to our smart Attendence tracking system. Easily manage clients and
-            admins from one place.
+            Welcome to our smart Attendence tracking system. Easily manage
+            clients and admins from one place.
           </p>
         </div>
 
@@ -172,7 +176,15 @@ function ClientPage() {
   return (
     <>
       <h2 style={{ padding: "2rem" }}>Welcome Client</h2>
-      <h4 style={{display:"flex",flexDirection:"column",alignItems:"center",}}>Working on this pages</h4>
+      <h4
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        Working on this pages
+      </h4>
     </>
   );
 }

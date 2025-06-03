@@ -18,6 +18,7 @@ const App = () => {
       const data = await fetch(
         "https://finallyback-4.onrender.com/api/v1/admin/getalluser"
       );
+      
       const result = await data.json();
 
       setStudents(result);
