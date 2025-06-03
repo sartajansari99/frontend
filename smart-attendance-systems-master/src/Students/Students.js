@@ -33,13 +33,15 @@ const App = () => {
       const refreshRes = await fetch(
         "https://finallyback.onrender.com/api/v1/admin/refresh-token",
         {
-          method: "GET",
+          method: "POST",
           credentials: "include",
         }
       );
 
       if (refreshRes.ok) {
         const data = await refreshRes.json();
+        console.log(data);
+        
         const newAccessToken = data.accessToken;
         localStorage.setItem("accessToken", newAccessToken);
 
