@@ -53,7 +53,7 @@ function LoginSignup() {
         setSuccess(data.message);
         console.log(data);
 
-        localStorage.setItem("token", data.accessToken);
+        localStorage.setItem("token", data.data.accessToken);
         localStorage.setItem("user", JSON.stringify(data.user));
         navigate(role === "Admin" ? "/admin/admin_dashboard" : "/client");
       } else {
