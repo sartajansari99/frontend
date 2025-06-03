@@ -13,7 +13,7 @@ const AttendanceReport = () => {
     const fetchSubjects = async () => {
       try {
         const response = await axios.get(
-          "https://finallyback-4.onrender.com/api/v1/admin/getAllSubjects"
+          "https://finallyback.onrender.com/api/v1/admin/getAllSubjects"
         );
         const grouped = response.data.reduce((acc, subject) => {
           if (!acc[subject.semester]) acc[subject.semester] = [];
@@ -29,7 +29,7 @@ const AttendanceReport = () => {
     const fetchAttendance = async () => {
       try {
         const response = await axios.get(
-          "https://finallyback-4.onrender.com/api/v1/admin/attendance_by_subject"
+          "https://finallyback.onrender.com/api/v1/admin/attendance_by_subject"
         );
         setAttendanceData(response.data);
       } catch (err) {

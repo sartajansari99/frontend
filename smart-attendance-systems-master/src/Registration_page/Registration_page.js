@@ -52,7 +52,7 @@ const Register = () => {
 
     try {
       const res = await axios.post(
-        "https://finallyback-4.onrender.com/api/v1/users/register",
+        "https://finallyback.onrender.com/api/v1/users/register",
         data,
         {
           headers: {

@@ -9,7 +9,7 @@ const AttendanceReport = () => {
     const fetchAttendanceData = async () => {
       try {
         const response = await axios.get(
-          "https://finallyback-4.onrender.com/api/v1/admin/attendance_log"
+          "https://finallyback.onrender.com/api/v1/admin/attendance_log"
         );
         setAttendanceData(response.data);
       } catch (err) {

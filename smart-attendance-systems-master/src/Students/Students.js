@@ -17,7 +17,7 @@ const App = () => {
     const fetchStudents = async () => {
       const token = localStorage.getItem("accessToken");
       const data = await fetch(
-        "https://finallyback-4.onrender.com/api/v1/admin/getalluser",
+        "https://finallyback.onrender.com/api/v1/admin/getalluser",
         {
           method: "GET",
           headers: {

@@ -17,7 +17,7 @@ const SubjectManager = () => {
 
   const fetchSubjects = async () => {
     const res = await axios.get(
-      "https://finallyback-4.onrender.com/api/v1/admin/getAllSubjects"
+      "https://finallyback.onrender.com/api/v1/admin/getAllSubjects"
     );
     setSubjects(res.data);
   };
@@ -37,7 +37,7 @@ const SubjectManager = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios.post(
-      "https://finallyback-4.onrender.com/api/v1/admin/createSubject",
+      "https://finallyback.onrender.com/api/v1/admin/createSubject",
       formData
     );
     setFormData({
@@ -54,7 +54,7 @@ const SubjectManager = () => {
   const handleDelete = async (id) => {
     if (window.confirm("Delete this subject?")) {
       await axios.delete(
-        `https://finallyback-4.onrender.com/api/v1/admin/deleteSubject/${id}`
+        `https://finallyback.onrender.com/api/v1/admin/deleteSubject/${id}`
       );
       fetchSubjects();
     }
@@ -67,7 +67,7 @@ const SubjectManager = () => {
 
   const handleUpdate = async () => {
     await axios.put(
-      `https://finallyback-4.onrender.com/api/v1/admin/updateSubject/${editingId}`,
+      `https://finallyback.onrender.com/api/v1/admin/updateSubject/${editingId}`,
       editData
     );
     setEditingId(null);
