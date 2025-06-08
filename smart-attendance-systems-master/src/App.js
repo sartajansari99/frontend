@@ -1,15 +1,10 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-} from "react-router-dom";
-import AdminPanel from "../Admin_Dashboard/AdminDashboard";
-import Students from "../Students/Students";
-import ManageSubject from "../Manage_Subject/Manage_Subject";
-import AttendenceReport from "../Attendence_Report/Attendence_Report";
-import AttendenceLog from "../Attendence_Log/Attendence_Log";
-import Registration from "../Registration_page/Registration_page";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AdminPanel from "./Admin_Dashboard/AdminDashboard";
+import Students from "./Students/Students";
+import ManageSubject from "./Manage_Subject/Manage_Subject";
+import AttendenceReport from "./Attendence_Report/Attendence_Report";
+import AttendenceLog from "./Attendence_Log/Attendence_Log";
+import Registration from "./Registration_page/Registration_page";
 import LoginSignup from "./Dashboard/Dashboard";
 import ClientPage from "./UserDashboard/ClientPage";
 function App() {
