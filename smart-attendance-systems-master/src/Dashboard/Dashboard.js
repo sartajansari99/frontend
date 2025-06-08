@@ -48,7 +48,7 @@ function LoginSignup() {
 
         setAccessToken(data.data.accessToken);
         console.log(data.data.accessToken);
-        console.log("fsar");
+        console.log("fsargfdgf");
 
         navigate(role === "Admin" ? "/admin/admin_dashboard" : "client");
         console.log("User role:", data.user?.role);
