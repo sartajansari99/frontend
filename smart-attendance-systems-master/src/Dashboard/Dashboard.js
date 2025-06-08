@@ -13,7 +13,7 @@ function LoginSignup() {
     password: "",
     adminCode: "",
   });
-  const setAccessToken=useAuth();
+  const setAccessToken = useAuth();
 
   const navigate = useNavigate();
 
@@ -35,14 +35,16 @@ function LoginSignup() {
 
       const response = await fetch(endpoint, {
         method: "POST",
-        credentials:"include",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
       const data = await response.json();
       if (response.ok) {
+        console.log(data);
+
         setSuccess(data.message);
-        setAccessToken(data.AccessToken)
+        setAccessToken(data.AccessToken);
         navigate(role === "Admin" ? "/admin/admin_dashboard" : "/client");
       } else {
         setError(data.message || "Invalid credentials");
@@ -157,4 +159,4 @@ function LoginSignup() {
     </div>
   );
 }
-export default LoginSignup
+export default LoginSignup;
