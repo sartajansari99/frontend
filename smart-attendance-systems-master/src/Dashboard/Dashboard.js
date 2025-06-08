@@ -43,8 +43,8 @@ function LoginSignup() {
       if (response.ok) {
         console.log(data);
 
-        setSuccess(data.message);
-        setAccessToken(data.AccessToken);
+        setSuccess(data.data.message);
+        setAccessToken(data.data.accessToken);
         navigate(role === "Admin" ? "/admin/admin_dashboard" : "/client");
       } else {
         setError(data.message || "Invalid credentials");
