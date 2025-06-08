@@ -44,6 +44,8 @@ function LoginSignup() {
         console.log(data);
 
         setSuccess(data.message);
+        console.log(data.message);
+        
         setAccessToken(data.accessToken);
         navigate(role === "Admin" ? "/admin/admin_dashboard" : "client");
         console.log("User role:", data.user?.role);
