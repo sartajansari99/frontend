@@ -1,20 +1,40 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import UserDashboard from "./UserDashboard/UserDashboard";
-
-// import AdminDashbaord from "./Admin_Dashboard/AdminDashboard"
-
-import Dashboard from "./Dashboard/Dashboard";
-
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
+import AdminPanel from "../Admin_Dashboard/AdminDashboard";
+import Students from "../Students/Students";
+import ManageSubject from "../Manage_Subject/Manage_Subject";
+import AttendenceReport from "../Attendence_Report/Attendence_Report";
+import AttendenceLog from "../Attendence_Log/Attendence_Log";
+import Registration from "../Registration_page/Registration_page";
+import LoginSignup from "./Dashboard/Dashboard";
+import ClientPage from "./UserDashboard/ClientPage";
 function App() {
   return (
-    <>
-    <Dashboard/>
     <Router>
-      <Routes> 
-        <Route path="/dashboard" element={<UserDashboard/>} />
+      <Routes>
+        <Route path="/" element={<LoginSignup />} />
+        <Route path="/admin/admin_dashboard" element={<AdminPanel />} />
+        <Route path="/admin/admin_dashboard/students" element={<Students />} />
+        <Route
+          path="/admin/admin_dashboard/manage-subject"
+          element={<ManageSubject />}
+        />
+        <Route
+          path="/admin/admin_dashboard/attendance-report"
+          element={<AttendenceReport />}
+        />
+        <Route
+          path="/admin/admin_dashboard/attendance-log"
+          element={<AttendenceLog />}
+        />
+        <Route path="/client" element={<ClientPage />} />
+        <Route path="/register" element={<Registration />} />
       </Routes>
     </Router>
-    </>
   );
 }
 

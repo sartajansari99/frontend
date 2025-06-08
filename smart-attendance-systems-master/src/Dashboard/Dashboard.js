@@ -1,17 +1,6 @@
 import React, { useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-} from "react-router-dom";
 import "./Dashboard.css";
-import AdminPanel from "../Admin_Dashboard/AdminDashboard";
-import Students from "../Students/Students";
-import ManageSubject from "../Manage_Subject/Manage_Subject";
-import AttendenceReport from "../Attendence_Report/Attendence_Report";
-import AttendenceLog from "../Attendence_Log/Attendence_Log";
-import Registration from "../Registration_page/Registration_page";
+import { useNavigate } from "react-router-dom";
 
 function LoginSignup() {
   const [role, setRole] = useState("Client");
@@ -164,48 +153,4 @@ function LoginSignup() {
     </div>
   );
 }
-
-function ClientPage() {
-  return (
-    <>
-      <h2 style={{ padding: "2rem" }}>Welcome Client</h2>
-      <h4
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        Working on this pages
-      </h4>
-    </>
-  );
-}
-
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LoginSignup />} />
-        <Route path="/admin/admin_dashboard" element={<AdminPanel />} />
-        <Route path="/admin/admin_dashboard/students" element={<Students />} />
-        <Route
-          path="/admin/admin_dashboard/manage-subject"
-          element={<ManageSubject />}
-        />
-        <Route
-          path="/admin/admin_dashboard/attendance-report"
-          element={<AttendenceReport />}
-        />
-        <Route
-          path="/admin/admin_dashboard/attendance-log"
-          element={<AttendenceLog />}
-        />
-        <Route path="/client" element={<ClientPage />} />
-        <Route path="/register" element={<Registration />} />
-      </Routes>
-    </Router>
-  );
-}
-
-export default App;
+export default LoginSignup

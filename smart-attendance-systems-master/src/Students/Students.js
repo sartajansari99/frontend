@@ -1,3 +1,4 @@
+// App.jsx
 import React, { useEffect, useState } from "react";
 import StudentCard from "./StudentCard";
 import FilterSidebar from "./FilterSidebar";
@@ -12,76 +13,25 @@ const App = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const studentsPerPage = 9;
 
-  // 🛡️ Auth fetch with refresh logic
-  const fetchWithAuth = async (input, options = {}) => {
-    const accessToken = localStorage.getItem("accessToken");
-
-    const defaultHeaders = {
-      ...options.headers,
-      Authorization: accessToken ? `Bearer ${accessToken}` : "",
-      "Content-Type": "application/json",
-    };
-
-    let res = await fetch(input, {
-      ...options,
-      headers: defaultHeaders,
-      credentials: "include", // to send cookies
-    });
-
-    if (res.status === 401) {
-      // Try to refresh token
-      const refreshRes = await fetch(
-        "https://finallyback.onrender.com/api/v1/admin/refresh-token",
+  useEffect(() => {
+    const fetchStudents = async () => {
+      const token = localStorage.getItem("accessToken");
+      const data = await fetch(
+        "https://finallyback.onrender.com/api/v1/admin/getalluser",
         {
-          method: "POST",
-          credentials: "include",
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
         }
       );
 
-      if (refreshRes.ok) {
-        const data = await refreshRes.json();
-        console.log(data);
-        
-        const newAccessToken = data.accessToken;
-        localStorage.setItem("accessToken", newAccessToken);
+      const result = await data.json();
 
-        // Retry original request
-        const retryRes = await fetch(input, {
-          ...options,
-          headers: {
-            ...options.headers,
-            Authorization: `Bearer ${newAccessToken}`,
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        });
-
-        return retryRes;
-      } else {
-        window.location.href = "/login";
-        throw new Error("Unauthorized");
-      }
-    }
-
-    return res;
-  };
-
-  useEffect(() => {
-    const fetchStudents = async () => {
-      try {
-        const data = await fetchWithAuth(
-          "https://finallyback.onrender.com/api/v1/admin/getalluser",
-          { method: "GET" }
-        );
-
-        const result = await data.json();
-        setStudents(result);
-        setFilteredStudents(result);
-      } catch (error) {
-        console.error("Failed to fetch students:", error);
-      }
+      setStudents(result);
+      setFilteredStudents(result);
     };
-
     fetchStudents();
   }, []);
 
