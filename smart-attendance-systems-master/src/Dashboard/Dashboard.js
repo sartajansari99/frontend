@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../Context/AuthContext";
 
 function LoginSignup() {
   const [role, setRole] = useState("Client");
@@ -13,7 +12,6 @@ function LoginSignup() {
     password: "",
     adminCode: "",
   });
-  const setAccessToken = useAuth();
 
   const navigate = useNavigate();
 
@@ -35,23 +33,13 @@ function LoginSignup() {
 
       const response = await fetch(endpoint, {
         method: "POST",
-        credentials: "include",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
       const data = await response.json();
       if (response.ok) {
-        console.log(data);
-
         setSuccess(data.message);
-        console.log(data.message);
-
-        setAccessToken(data.data.accessToken);
-        console.log(data.data.accessToken);
-        console.log("fsargfdgf");
-
-        navigate(role === "Admin" ? "/admin/admin_dashboard" : "client");
-        console.log("User role:", data.user?.role);
+        navigate(role === "Admin" ? "/admin/admin_dashboard" : "/client");
       } else {
         setError(data.message || "Invalid credentials");
       }
@@ -165,4 +153,6 @@ function LoginSignup() {
     </div>
   );
 }
-export default LoginSignup;
+
+
+export default LoginSignup
