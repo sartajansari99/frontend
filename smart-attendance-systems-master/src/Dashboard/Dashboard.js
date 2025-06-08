@@ -45,7 +45,8 @@ function LoginSignup() {
 
         setSuccess(data.message);
         setAccessToken(data.accessToken);
-        navigate(role === "Admin" ? "/admin/admin_dashboard" : "/client");
+        navigate(role === "Admin" ? "/admin/admin_dashboard" : "client");
+        console.log("User role:", data.user?.role);
       } else {
         setError(data.message || "Invalid credentials");
       }
