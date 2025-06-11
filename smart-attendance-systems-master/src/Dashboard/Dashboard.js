@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import "./Dashboard.css";
 import { useNavigate } from "react-router-dom";
-import api from "../api"; // axios instance with withCredentials: true
 
 function LoginSignup() {
   const [role, setRole] = useState("Client");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
-  const [accessToken, setAccessToken] = useState(null);
-
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -34,19 +31,22 @@ function LoginSignup() {
           ? "https://finallyback.onrender.com/api/v1/admin/login"
           : "https://finallyback.onrender.com/api/v1/users/login";
 
-      const response = await api.post(endpoint, formData);
-
-      if (response.status === 200) {
-        setSuccess(response.data.message);
-        setAccessToken(response.data.accessToken);
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setSuccess(data.message);
         navigate(role === "Admin" ? "/admin/admin_dashboard" : "/client");
+        console.log(data);
+        
       } else {
-        setError(response.data.message || "Invalid credentials");
+        setError(data.message || "Invalid credentials");
       }
     } catch (err) {
-      setError(
-        err.response?.data?.message || "Server error. Please try again later."
-      );
+      setError("Server error. Please try again later.");
     } finally {
       setLoading(false);
     }
