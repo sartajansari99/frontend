@@ -5,8 +5,10 @@ import FilterSidebar from "./FilterSidebar";
 import SearchBar from "./SearchBar";
 import Pagination from "./Pagination";
 import "./Students.css";
+import { useNavigate } from "react-router-dom";
 
 const App = () => {
+  const navigate = useNavigate();
   const [students, setStudents] = useState([]);
   const [filteredStudents, setFilteredStudents] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
@@ -16,6 +18,10 @@ const App = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       const token = localStorage.getItem("accessToken");
+      if (!token) {
+        navigate("https://frontend-eta-ivory-62.vercel.app");
+        return;
+      }
       console.log(token);
 
       const data = await fetch(
