@@ -19,7 +19,7 @@ const App = () => {
     const fetchStudents = async () => {
       const token = localStorage.getItem("accessToken");
       if (!token) {
-        navigate("https://frontend-eta-ivory-62.vercel.app");
+        navigate("/");
         return;
       }
       console.log(token);
