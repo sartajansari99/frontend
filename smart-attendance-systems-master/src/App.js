@@ -7,12 +7,12 @@ import AttendenceLog from "./Attendence_Log/Attendence_Log";
 import Registration from "./Registration_page/Registration_page";
 import LoginSignup from "./Dashboard/Dashboard";
 import ClientPage from "./UserDashboard/ClientPage";
-import { AuthProvider } from "./Context/AuthContext";
+
 
 function App() {
   return (
     <Router>
-      <AuthProvider>
+      
         <Routes>
           <Route path="/" element={<LoginSignup />} />
           <Route path="/admin/admin_dashboard" element={<AdminPanel />} />
@@ -35,7 +35,7 @@ function App() {
           <Route path="/client" element={<ClientPage />} />
           <Route path="/register" element={<Registration />} />
         </Routes>
-      </AuthProvider>
+    
     </Router>
   );
 }
