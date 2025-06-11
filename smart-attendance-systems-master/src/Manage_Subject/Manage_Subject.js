@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "./Manage_Subject.css";
 
 const SubjectManager = () => {
@@ -16,10 +15,9 @@ const SubjectManager = () => {
   const [editData, setEditData] = useState({});
 
   const fetchSubjects = async () => {
-    const res = await axios.get(
-      "https://finallyback.onrender.com/api/v1/admin/getAllSubjects"
-    );
-    setSubjects(res.data);
+    const res = await fetch("https://finallyback.onrender.com/api/v1/admin/getAllSubjects");
+    const data = await res.json();
+    setSubjects(data);
   };
 
   useEffect(() => {
@@ -36,10 +34,13 @@ const SubjectManager = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post(
-      "https://finallyback.onrender.com/api/v1/admin/createSubject",
-      formData
-    );
+    await fetch("https://finallyback.onrender.com/api/v1/admin/createSubject", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
     setFormData({
       name: "",
       code: "",
@@ -53,9 +54,9 @@ const SubjectManager = () => {
 
   const handleDelete = async (id) => {
     if (window.confirm("Delete this subject?")) {
-      await axios.delete(
-        `https://finallyback.onrender.com/api/v1/admin/deleteSubject/${id}`
-      );
+      await fetch(`https://finallyback.onrender.com/api/v1/admin/deleteSubject/${id}`, {
+        method: "DELETE",
+      });
       fetchSubjects();
     }
   };
@@ -66,10 +67,13 @@ const SubjectManager = () => {
   };
 
   const handleUpdate = async () => {
-    await axios.put(
-      `https://finallyback.onrender.com/api/v1/admin/updateSubject/${editingId}`,
-      editData
-    );
+    await fetch(`https://finallyback.onrender.com/api/v1/admin/updateSubject/${editingId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(editData),
+    });
     setEditingId(null);
     fetchSubjects();
   };
@@ -227,12 +231,8 @@ const SubjectManager = () => {
                     <td>{subj.endTime}</td>
                     <td>{subj.day}</td>
                     <td>
-                      <button onClick={() => handleEditClick(subj)}>
-                        Edit
-                      </button>
-                      <button onClick={() => handleDelete(subj._id)}>
-                        Delete
-                      </button>
+                      <button onClick={() => handleEditClick(subj)}>Edit</button>
+                      <button onClick={() => handleDelete(subj._id)}>Delete</button>
                     </td>
                   </>
                 )}

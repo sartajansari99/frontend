@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./Attendence_Report.css";
-import axios from "axios";
 
 const AttendanceReport = () => {
   const [subjectsBySemester, setSubjectsBySemester] = useState({});
@@ -12,10 +11,11 @@ const AttendanceReport = () => {
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
-        const response = await axios.get(
+        const response = await fetch(
           "https://finallyback.onrender.com/api/v1/admin/getAllSubjects"
         );
-        const grouped = response.data.reduce((acc, subject) => {
+        const data = await response.json();
+        const grouped = data.reduce((acc, subject) => {
           if (!acc[subject.semester]) acc[subject.semester] = [];
           acc[subject.semester].push({ name: subject.name, id: subject._id });
           return acc;
@@ -28,10 +28,11 @@ const AttendanceReport = () => {
 
     const fetchAttendance = async () => {
       try {
-        const response = await axios.get(
+        const response = await fetch(
           "https://finallyback.onrender.com/api/v1/admin/attendance_by_subject"
         );
-        setAttendanceData(response.data);
+        const data = await response.json();
+        setAttendanceData(data);
       } catch (err) {
         console.error("Failed to fetch attendance:", err);
       }
