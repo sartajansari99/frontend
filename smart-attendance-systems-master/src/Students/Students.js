@@ -16,6 +16,8 @@ const App = () => {
   useEffect(() => {
     const fetchStudents = async () => {
       const token = localStorage.getItem("accessToken");
+      console.log(token);
+      
       const data = await fetch(
         "https://finallyback.onrender.com/api/v1/admin/getalluser",
         {
