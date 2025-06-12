@@ -14,7 +14,7 @@ const AttendanceReport = () => {
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
-      navigate("/login");
+      navigate("/");
       return;
     }
 
