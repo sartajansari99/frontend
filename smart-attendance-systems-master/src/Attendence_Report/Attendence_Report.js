@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; 
 import "./Attendence_Report.css";
 
 const AttendanceReport = () => {
+  const navigate = useNavigate();
+
   const [subjectsBySemester, setSubjectsBySemester] = useState({});
   const [attendanceData, setAttendanceData] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
@@ -9,6 +12,12 @@ const AttendanceReport = () => {
   const [popupSubjectName, setPopupSubjectName] = useState("");
 
   useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      navigate("/login");
+      return;
+    }
+
     const fetchSubjects = async () => {
       try {
         const response = await fetch(
@@ -40,7 +49,7 @@ const AttendanceReport = () => {
 
     fetchSubjects();
     fetchAttendance();
-  }, []);
+  }, [navigate]);
 
   const getGroupedAttendance = () => {
     const grouped = {};
@@ -75,13 +84,11 @@ const AttendanceReport = () => {
   return (
     <div className="report-container">
       <h1 className="title">ATTENDANCE REPORT</h1>
-
       <h2 className="today-title">Today’s Attendance Report</h2>
 
       {semesters.map((semester) => (
         <div className="semester-section" key={semester}>
           <h3 className="semester-title">Semester {semester}</h3>
-
           <div className="grid-container">
             {subjectsBySemester[semester].map((subject, index) => (
               <div key={index} className="subject-attendance-pair">
@@ -97,6 +104,7 @@ const AttendanceReport = () => {
           </div>
         </div>
       ))}
+
       {showPopup && (
         <div className="popup-overlay">
           <div className="popup-modal">

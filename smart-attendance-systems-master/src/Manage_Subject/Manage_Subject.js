@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./Manage_Subject.css";
+import { useNavigate } from "react-router-dom";
 
 const SubjectManager = () => {
+  const navigate = useNavigate();
   const [subjects, setSubjects] = useState([]);
   const [formData, setFormData] = useState({
     name: "",
@@ -15,14 +17,24 @@ const SubjectManager = () => {
   const [editData, setEditData] = useState({});
 
   const fetchSubjects = async () => {
-    const res = await fetch("https://finallyback.onrender.com/api/v1/admin/getAllSubjects");
+    const token = localStorage.getItem("accessToken");
+    const res = await fetch("https://finallyback.onrender.com/api/v1/admin/getAllSubjects", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     const data = await res.json();
     setSubjects(data);
   };
 
   useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (!token) {
+      navigate("/");
+      return;
+    }
     fetchSubjects();
-  }, []);
+  }, [navigate]);
 
   const handleChange = (e) => {
     if (editingId) {
@@ -34,9 +46,11 @@ const SubjectManager = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = localStorage.getItem("accessToken");
     await fetch("https://finallyback.onrender.com/api/v1/admin/createSubject", {
       method: "POST",
       headers: {
+        Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(formData),
@@ -53,10 +67,17 @@ const SubjectManager = () => {
   };
 
   const handleDelete = async (id) => {
+    const token = localStorage.getItem("accessToken");
     if (window.confirm("Delete this subject?")) {
-      await fetch(`https://finallyback.onrender.com/api/v1/admin/deleteSubject/${id}`, {
-        method: "DELETE",
-      });
+      await fetch(
+        `https://finallyback.onrender.com/api/v1/admin/deleteSubject/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       fetchSubjects();
     }
   };
@@ -67,13 +88,18 @@ const SubjectManager = () => {
   };
 
   const handleUpdate = async () => {
-    await fetch(`https://finallyback.onrender.com/api/v1/admin/updateSubject/${editingId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(editData),
-    });
+    const token = localStorage.getItem("accessToken");
+    await fetch(
+      `https://finallyback.onrender.com/api/v1/admin/updateSubject/${editingId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(editData),
+      }
+    );
     setEditingId(null);
     fetchSubjects();
   };

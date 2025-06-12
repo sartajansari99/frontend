@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Attendence_Log.css";
 import axios from "axios";
 
 const AttendanceReport = () => {
   const [attendanceData, setAttendanceData] = useState([]);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
+ 
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      navigate("/login");
+      return;
+    }
+
     const fetchAttendanceData = async () => {
       try {
         const response = await axios.get(
@@ -16,8 +25,9 @@ const AttendanceReport = () => {
         console.error("Failed to fetch attendance data:", err);
       }
     };
+
     fetchAttendanceData();
-  }, []);
+  }, [navigate]);
 
   return (
     <div className="report-container">
@@ -26,10 +36,7 @@ const AttendanceReport = () => {
       {attendanceData.map((entry, index) => (
         <div className="log-row" key={index}>
           <div className="photo-circle">
-            <img
-              src={entry.avatar}
-              alt={entry.fullName}
-            />
+            <img src={entry.avatar} alt={entry.fullName} />
           </div>
           <div className="log-info">
             <span>Name: {entry.fullName}</span>
