@@ -47,7 +47,7 @@ function LoginSignup() {
         setError(data.message || "Invalid credentials");
       }
     } catch (err) {
-      setError("Server error. Please try again later.");
+      setError("wrong login credential");
     } finally {
       setLoading(false);
     }
