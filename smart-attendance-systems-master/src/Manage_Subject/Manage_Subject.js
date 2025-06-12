@@ -18,11 +18,14 @@ const SubjectManager = () => {
 
   const fetchSubjects = async () => {
     const token = localStorage.getItem("accessToken");
-    const res = await fetch("https://finallyback.onrender.com/api/v1/admin/getAllSubjects", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const res = await fetch(
+      "https://finallyback.onrender.com/api/v1/admin/getAllSubjects",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const data = await res.json();
     setSubjects(data);
   };
@@ -257,8 +260,12 @@ const SubjectManager = () => {
                     <td>{subj.endTime}</td>
                     <td>{subj.day}</td>
                     <td>
-                      <button onClick={() => handleEditClick(subj)}>Edit</button>
-                      <button onClick={() => handleDelete(subj._id)}>Delete</button>
+                      <button onClick={() => handleEditClick(subj)}>
+                        Edit
+                      </button>
+                      <button onClick={() => handleDelete(subj._id)}>
+                        Delete
+                      </button>
                     </td>
                   </>
                 )}

@@ -22,7 +22,14 @@ const AttendanceReport = () => {
     const fetchSubjects = async () => {
       try {
         const response = await fetch(
-          "https://finallyback.onrender.com/api/v1/admin/getAllSubjects"
+          "https://finallyback.onrender.com/api/v1/admin/getAllSubjects",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+          }
         );
         const data = await response.json();
         const grouped = data.reduce((acc, subject) => {
@@ -39,7 +46,14 @@ const AttendanceReport = () => {
     const fetchAttendance = async () => {
       try {
         const response = await fetch(
-          "https://finallyback.onrender.com/api/v1/admin/attendance_by_subject"
+          "https://finallyback.onrender.com/api/v1/admin/attendance_by_subject",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+          }
         );
         const data = await response.json();
         setAttendanceData(data);

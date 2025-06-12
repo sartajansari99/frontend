@@ -19,7 +19,14 @@ const AttendanceReport = () => {
     const fetchAttendanceData = async () => {
       try {
         const response = await axios.get(
-          "https://finallyback.onrender.com/api/v1/admin/attendance_log"
+          "https://finallyback.onrender.com/api/v1/admin/attendance_log",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Content-Type": "application/json",
+            },
+          }
         );
         setAttendanceData(response.data);
       } catch (err) {
