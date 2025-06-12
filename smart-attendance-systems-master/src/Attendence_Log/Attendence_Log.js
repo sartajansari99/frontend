@@ -5,11 +5,12 @@ import axios from "axios";
 
 const AttendanceReport = () => {
   const [attendanceData, setAttendanceData] = useState([]);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
- 
     const accessToken = localStorage.getItem("accessToken");
+    console.log(accessToken);
+
     if (!accessToken) {
       navigate("/");
       return;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import "./Attendence_Report.css";
 
 const AttendanceReport = () => {
@@ -13,6 +13,7 @@ const AttendanceReport = () => {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
+    console.log(accessToken);
     if (!accessToken) {
       navigate("/");
       return;
