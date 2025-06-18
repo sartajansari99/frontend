@@ -22,7 +22,7 @@ const AttendanceReport = () => {
     const fetchSubjects = async () => {
       try {
         const response = await fetch(
-          "https://finallyback.onrender.com/api/v1/admin/getAllSubjects",
+          "https://finallyback-1.onrender.com/api/v1/admin/getAllSubjects",
           {
             method: "GET",
             headers: {
@@ -46,7 +46,7 @@ const AttendanceReport = () => {
     const fetchAttendance = async () => {
       try {
         const response = await fetch(
-          "https://finallyback.onrender.com/api/v1/admin/attendance_by_subject",
+          "https://finallyback-1.onrender.com/api/v1/admin/attendance_by_subject",
           {
             method: "GET",
             headers: {

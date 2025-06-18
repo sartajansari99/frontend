@@ -28,8 +28,8 @@ function LoginSignup() {
     try {
       const endpoint =
         role === "Admin"
-          ? "https://finallyback.onrender.com/api/v1/admin/login"
-          : "https://finallyback.onrender.com/api/v1/users/login";
+          ? "https://finallyback-1.onrender.com/api/v1/admin/login"
+          : "https://finallyback-1.onrender.com/api/v1/users/login";
 
       const response = await fetch(endpoint, {
         method: "POST",
