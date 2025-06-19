@@ -19,7 +19,7 @@ const AttendanceReport = () => {
     const fetchAttendanceData = async () => {
       try {
         const response = await axios.get(
-          "https://finallyback-1.onrender.com/api/v1/admin/attendance_log",
+          "http://localhost:8000/api/v1/admin/attendance_log",
           {
             method: "GET",
             headers: {

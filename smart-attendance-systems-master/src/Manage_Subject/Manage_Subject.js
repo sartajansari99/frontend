@@ -19,7 +19,7 @@ const SubjectManager = () => {
   const fetchSubjects = async () => {
     const token = localStorage.getItem("accessToken");
     const res = await fetch(
-      "https://finallyback-1.onrender.com/api/v1/admin/getAllSubjects",
+      "http://localhost:8000/api/v1/admin/getAllSubjects",
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -50,7 +50,7 @@ const SubjectManager = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = localStorage.getItem("accessToken");
-    await fetch("https://finallyback-1.onrender.com/api/v1/admin/createSubject", {
+    await fetch("http://localhost:8000/api/v1/admin/createSubject", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -73,7 +73,7 @@ const SubjectManager = () => {
     const token = localStorage.getItem("accessToken");
     if (window.confirm("Delete this subject?")) {
       await fetch(
-        `https://finallyback-1.onrender.com/api/v1/admin/deleteSubject/${id}`,
+        `http://localhost:8000/api/v1/admin/deleteSubject/${id}`,
         {
           method: "DELETE",
           headers: {
@@ -93,7 +93,7 @@ const SubjectManager = () => {
   const handleUpdate = async () => {
     const token = localStorage.getItem("accessToken");
     await fetch(
-      `https://finallyback-1.onrender.com/api/v1/admin/updateSubject/${editingId}`,
+      `http://localhost:8000/api/v1/admin/updateSubject/${editingId}`,
       {
         method: "PUT",
         headers: {

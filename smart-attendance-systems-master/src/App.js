@@ -7,35 +7,31 @@ import AttendenceLog from "./Attendence_Log/Attendence_Log";
 import Registration from "./Registration_page/Registration_page";
 import LoginSignup from "./Dashboard/Dashboard";
 import ClientPage from "./UserDashboard/ClientPage";
-
+import Dashboards from "./Dashboards/Dashboards";
 
 function App() {
   return (
     <Router>
-      
-        <Routes>
-          <Route path="/" element={<LoginSignup />} />
-          <Route path="/admin/admin_dashboard" element={<AdminPanel />} />
-          <Route
-            path="/admin/admin_dashboard/students"
-            element={<Students />}
-          />
-          <Route
-            path="/admin/admin_dashboard/manage-subject"
-            element={<ManageSubject />}
-          />
-          <Route
-            path="/admin/admin_dashboard/attendance-report"
-            element={<AttendenceReport />}
-          />
-          <Route
-            path="/admin/admin_dashboard/attendance-log"
-            element={<AttendenceLog />}
-          />
-          <Route path="/client" element={<ClientPage />} />
-          <Route path="/register" element={<Registration />} />
-        </Routes>
-    
+      <Routes>
+        <Route path="/" element={<LoginSignup />} />
+        <Route path="/admin/admin_dashboard" element={<AdminPanel />} />
+        <Route path="/admin/admin_dashboard/students" element={<Students />} />
+        <Route
+          path="/admin/admin_dashboard/manage-subject"
+          element={<ManageSubject />}
+        />
+        <Route
+          path="/admin/admin_dashboard/attendance-report"
+          element={<AttendenceReport />}
+        />
+        <Route
+          path="/admin/admin_dashboard/attendance-log"
+          element={<AttendenceLog />}
+        />
+        <Route path="/client" element={<ClientPage />} />
+        <Route path="/register" element={<Registration />} />
+        <Route path="/dashboards" element={<Dashboards />} />
+      </Routes>
     </Router>
   );
 }
