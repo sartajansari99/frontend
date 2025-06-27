@@ -36,6 +36,9 @@ const AdminPanel = () => {
         >
           ATTENDANCE LOG
         </button>
+        <button onClick={() => navigate("/dashboards")}>
+          STUDENTS Dashboard
+        </button>
       </div>
     </div>
   );
